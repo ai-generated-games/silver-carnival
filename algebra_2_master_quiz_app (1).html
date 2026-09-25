@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra 2: Master Quiz Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .math-font {
+            font-family: 'KaTeX_Main', 'Cambria Math', 'Times New Roman', serif;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Navigation Bar -->
+    <header class="w-full glass-card sticky top-0 z-50 border-b border-slate-700/50 shadow-md">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToSetup()">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div>
+                    <h1 class="text-base md:text-lg font-extrabold text-white tracking-tight leading-tight">Algebra 2 Master Quiz</h1>
+                    <p class="text-xs text-slate-400">Interactive Curriculum Practice Suite</p>
+                </div>
+            </div>
+            
+            <!-- Quick Stats & Header Reset Controls -->
+            <div id="headerStats" class="flex items-center space-x-2 sm:space-x-4 text-xs md:text-sm">
+                <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-clock text-amber-400"></i>
+                    <span id="timerDisplay" class="font-mono font-semibold text-slate-200">00:00</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-fire text-orange-500"></i>
+                    <span id="streakDisplay" class="font-semibold text-slate-200">0</span>
+                </div>
+                
+                <!-- Reset Quiz Button in Header -->
+                <button id="headerResetBtn" onclick="resetCurrentQuiz()" class="hidden sm:flex items-center gap-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3 py-1.5 rounded-lg font-semibold transition-all">
+                    <i class="fa-solid fa-rotate-left text-xs"></i>
+                    <span>Reset</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 md:p-6 flex-grow flex flex-col justify-center">
+
+        <!-- SCREEN 1: Setup & Topic Filter Screen -->
+        <div id="setupScreen" class="glass-card rounded-2xl p-6 md:p-8 shadow-2xl space-y-6 transition-all duration-300">
+            <div class="text-center space-y-2">
+                <span class="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full">Interactive Practice</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Algebra 2 Curriculum Quiz</h2>
+                <p class="text-slate-400 max-w-lg mx-auto text-xs md:text-sm">Select your Unit and specific Day/Topic to practice step-by-step problem solving.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                <!-- Unit Selection -->
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-blue-400"></i> Select Unit
+                    </label>
+                    <select id="unitSelect" onchange="onUnitChange()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs md:text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                        <option value="all">All Units (Mixed)</option>
+                        <option value="unit2" selected>Unit 2: Absolute Value Equations & Inequalities</option>
+                        <option value="unit3">Unit 3: Quadratic Functions</option>
+                    </select>
+                </div>
+
+                <!-- Topic/Day Selection -->
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-400"></i> Day / Specific Topic
+                    </label>
+                    <select id="topicSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs md:text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                        <!-- Populated dynamically by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Question Count Selection -->
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-hashtag text-emerald-400"></i> Questions Count
+                    </label>
+                    <select id="countSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs md:text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                        <option value="5">5 Questions</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="15">15 Questions</option>
+                        <option value="20">20 Questions</option>
+                        <option value="all">All Available Questions</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <button onclick="startQuiz()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base md:text-lg flex items-center justify-center gap-2">
+                <i class="fa-solid fa-play"></i> Start Custom Quiz
+            </button>
+        </div>
+
+        <!-- SCREEN 2: Active Quiz Screen -->
+        <div id="quizScreen" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl space-y-5">
+            
+            <!-- Progress Bar & Question Counter Header -->
+            <div class="space-y-2">
+                <div class="flex justify-between items-center text-xs md:text-sm font-medium">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-slate-400">Question <span id="currentQNum" class="text-white font-bold">1</span> of <span id="totalQNum">10</span></span>
+                        <span id="dayBadge" class="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">Day Topic</span>
+                    </div>
+                    
+                    <!-- Reset Quiz Button inside active view -->
+                    <button onclick="resetCurrentQuiz()" class="flex items-center gap-1.5 text-xs text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 px-3 py-1 rounded-lg transition-all font-semibold">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Reset Quiz</span>
+                    </button>
+                </div>
+
+                <!-- Main Progress Bar -->
+                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+
+                <!-- DUAL COLOR RED / GREEN ACCURACY RATIO BAR -->
+                <div class="space-y-1 pt-1">
+                    <div class="flex justify-between items-center text-[11px] font-semibold text-slate-400">
+                        <span id="incorrectRatioText" class="text-rose-400 flex items-center gap-1">
+                            <i class="fa-solid fa-xmark"></i> 0 Incorrect (0%)
+                        </span>
+                        <span id="correctRatioText" class="text-emerald-400 flex items-center gap-1">
+                            <i class="fa-solid fa-check"></i> 0 Correct (0%)
+                        </span>
+                    </div>
+                    
+                    <!-- Split Bar Container -->
+                    <div class="w-full h-3 bg-slate-900 rounded-lg overflow-hidden border border-slate-800 flex">
+                        <div id="ratioBarRed" class="bg-rose-500 h-full w-0 transition-all duration-500"></div>
+                        <div id="ratioBarGreen" class="bg-emerald-500 h-full w-0 transition-all duration-500"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Display Box -->
+            <div class="bg-slate-900/90 rounded-2xl p-5 md:p-6 border border-slate-800 space-y-4 shadow-inner">
+                <p id="questionPrompt" class="text-xs md:text-sm font-medium text-slate-400">Question prompt here...</p>
+                <div id="questionEquation" class="text-lg md:text-2xl font-bold text-white math-font tracking-wide bg-slate-950 p-4 rounded-xl text-center border border-slate-800/80 shadow-md">
+                    Equation or Problem
+                </div>
+            </div>
+
+            <!-- Answers Container (MCQ or Fill-in) -->
+            <div id="answersContainer" class="space-y-2.5">
+                <!-- Dynamically generated options -->
+            </div>
+
+            <!-- Step-by-Step Explanation Box -->
+            <div id="feedbackBox" class="hidden rounded-xl p-5 border transition-all duration-300 space-y-3">
+                <div class="flex items-center gap-2 font-bold text-base md:text-lg" id="feedbackTitle"></div>
+                <div id="feedbackBody" class="text-xs md:text-sm text-slate-300 space-y-2 leading-relaxed"></div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="resetToSetup()" class="text-xs text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-sliders"></i> Exit to Filters
+                </button>
+                <button id="nextBtn" onclick="nextQuestion()" class="hidden py-2.5 px-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl shadow-lg transition-all flex items-center gap-2">
+                    <span>Next Question</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Final Results & Analytics Screen -->
+        <div id="resultsScreen" class="hidden glass-card rounded-2xl p-6 md:p-8 shadow-2xl space-y-6 text-center">
+            
+            <div class="space-y-2">
+                <div class="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mx-auto text-3xl">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Quiz Completed!</h2>
+                <p id="resultSummaryText" class="text-slate-400 text-xs md:text-sm max-w-md mx-auto">Great job completing this session! Here is your performance overview.</p>
+            </div>
+
+            <!-- Metric Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+                    <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">Score</span>
+                    <span id="finalScore" class="text-xl md:text-2xl font-bold text-blue-400">0 / 0</span>
+                </div>
+                <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+                    <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">Accuracy</span>
+                    <span id="finalAccuracy" class="text-xl md:text-2xl font-bold text-emerald-400">0%</span>
+                </div>
+                <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+                    <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">Time Taken</span>
+                    <span id="finalTime" class="text-xl md:text-2xl font-bold text-amber-400">00:00</span>
+                </div>
+                <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+                    <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">Max Streak</span>
+                    <span id="finalStreak" class="text-xl md:text-2xl font-bold text-orange-400">0</span>
+                </div>
+            </div>
+
+            <!-- Results Red / Green Accuracy Summary Bar -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="flex justify-between items-center text-xs font-semibold">
+                    <span id="summaryRedText" class="text-rose-400">0 Incorrect</span>
+                    <span id="summaryGreenText" class="text-emerald-400">0 Correct</span>
+                </div>
+                <div class="w-full h-3 bg-slate-950 rounded-lg overflow-hidden flex border border-slate-800">
+                    <div id="summaryRedBar" class="bg-rose-500 h-full w-0 transition-all duration-500"></div>
+                    <div id="summaryGreenBar" class="bg-emerald-500 h-full w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                <button onclick="resetToSetup()" class="py-3 px-6 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Filter Options
+                </button>
+                <button onclick="startQuiz()" class="py-3 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-sm font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Play Again
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-3 text-xs text-slate-500 border-t border-slate-800/60 glass-card mt-auto">
+        Algebra 2 Interactive Learning App &bull; Unit 2 & Unit 3 Mastery
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Topic mappings per unit
+        const topicMap = {
+            unit2: [
+                { id: "all", name: "All Unit 2 Topics" },
+                { id: "u2d1", name: "Day 1: Graphing with Transformations" },
+                { id: "u2d2", name: "Day 2: More Graphing with Transformations" },
+                { id: "u2d3", name: "Day 3: Solving Absolute Value Equations" },
+                { id: "u2d4", name: "Day 4: Interval Notation & Compound Inequalities" },
+                { id: "u2d5", name: "Day 5: Absolute Value Inequalities & Word Problems" }
+            ],
+            unit3: [
+                { id: "all", name: "All Unit 3 Topics" },
+                { id: "u3d1", name: "Day 1: Graphing in Vertex Form" },
+                { id: "u3d2", name: "Day 2: Graphing in Intercept & Standard Form" },
+                { id: "u3d3", name: "Day 3: Factoring" },
+                { id: "u3d4", name: "Day 4: Solving by Factoring" },
+                { id: "u3d5", name: "Day 5: Solving Quadratic Inequalities" },
+                { id: "u3d6", name: "Day 6: Operations with Complex Numbers" },
+                { id: "u3d7", name: "Day 7: Square Root Property" },
+                { id: "u3d8", name: "Day 8: Completing the Square" },
+                { id: "u3d9", name: "Day 9: Non-Linear Systems of Equations" },
+                { id: "u3d10", name: "Day 10: Quadratic Formula & Discriminant" }
+            ]
+        };
+
+        // Complete 75+ Question Bank
+        const questionBank = [
+            // UNIT 2 DAY 1
+            {
+                id: "u2d1_1", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
+                prompt: "Identify the vertex of the transformed absolute value function:",
+                equation: "f(x) = |x - 3| + 7",
+                options: ["(3, 7)", "(-3, 7)", "(3, -7)", "(-3, -7)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Vertex form: <code>f(x) = a|x - h| + k</code>.",
+                    "2. Vertex is <code>(h, k)</code>.",
+                    "3. For <code>f(x) = |x - 3| + 7</code>, <code>h = 3</code> and <code>k = 7</code> &rarr; Vertex is <strong>(3, 7)</strong>."
+                ]
+            },
+            {
+                id: "u2d1_2", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
+                prompt: "Describe the transformation of f(x) compared to parent function g(x) = |x|:",
+                equation: "f(x) = -2|x|",
+                options: [
+                    "Vertical stretch by factor of 2 and reflected over the x-axis",
+                    "Vertical compression by 1/2 and shifted down 2",
+                    "Horizontal shift left 2 units",
+                    "Reflected over y-axis and shifted up 2"
+                ],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. The negative sign in front causes a <strong>reflection across the x-axis</strong>.",
+                    "2. The coefficient <code>|a| = 2 > 1</code> causes a <strong>vertical stretch by 2</strong>."
+                ]
+            },
+            {
+                id: "u2d1_3", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
+                prompt: "Identify the axis of symmetry for the absolute value function:",
+                equation: "f(x) = -4|x + 5| - 2",
+                options: ["x = -5", "x = 5", "y = -2", "x = -2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Axis of symmetry for <code>f(x) = a|x - h| + k</code> is <code>x = h</code>.",
+                    "2. Here <code>x + 5 = 0</code> &rarr; <code>x = -5</code>."
+                ]
+            },
+            {
+                id: "u2d1_4", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
+                prompt: "Which direction does the graph of f(x) open?",
+                equation: "f(x) = -3|x - 1| + 4",
+                options: ["Opens Downward", "Opens Upward", "Opens to the Left", "Opens to the Right"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Coefficient <code>a = -3</code> is negative.",
+                    "2. Negative <code>a</code> flips the graph downwards &rarr; <strong>Opens Downward</strong>."
+                ]
+            },
+            {
+                id: "u2d1_5", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
+                prompt: "What is the vertical shift of the function f(x) relative to |x|?",
+                equation: "f(x) = |x + 2| - 9",
+                options: ["Down 9 units", "Up 9 units", "Left 2 units", "Right 2 units"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. The constant term <code>k = -9</code> shifts the parent graph <strong>Down 9 units</strong>."
+                ]
+            },
+
+            // UNIT 2 DAY 2
+            {
+                id: "u2d2_1", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
+                prompt: "Determine the domain and range of the function:",
+                equation: "f(x) = -|x - 2| + 5",
+                options: [
+                    "Domain: (-∞, ∞), Range: (-∞, 5]",
+                    "Domain: [2, ∞), Range: (-∞, ∞)",
+                    "Domain: (-∞, ∞), Range: [5, ∞)",
+                    "Domain: (-∞, 2], Range: [5, ∞)"
+                ],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Domain of absolute value functions is always <strong>(-∞, ∞)</strong>.",
+                    "2. Vertex is <code>(2, 5)</code> and opens down &rarr; Range is <strong>(-∞, 5]</strong>."
+                ]
+            },
+            {
+                id: "u2d2_2", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
+                prompt: "Write the equation of an absolute value graph with vertex (-4, 1) opening upward with a vertical stretch of 3:",
+                equation: "f(x) = ?",
+                options: [
+                    "f(x) = 3|x + 4| + 1",
+                    "f(x) = 3|x - 4| + 1",
+                    "f(x) = -3|x + 4| + 1",
+                    "f(x) = 1/3|x + 4| + 1"
+                ],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Plug <code>a = 3</code>, <code>h = -4</code>, and <code>k = 1</code> into <code>f(x) = a|x - h| + k</code>.",
+                    "2. <code>f(x) = 3|x - (-4)| + 1</code> &rarr; <code>f(x) = 3|x + 4| + 1</code>."
+                ]
+            },
+            {
+                id: "u2d2_3", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
+                prompt: "Find the Range of the function:",
+                equation: "f(x) = 2|x + 1| - 6",
+                options: ["[-6, ∞)", "(-∞, -6]", "[-1, ∞)", "(-∞, ∞)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Vertex <code>k = -6</code>. Since <code>a = 2 > 0</code>, the graph opens upward.",
+                    "2. Minimum y-value is <code>-6</code> &rarr; Range: <strong>[-6, ∞)</strong>."
+                ]
+            },
+            {
+                id: "u2d2_4", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
+                prompt: "If parent graph f(x)=|x| is shifted right 5 and down 3, write the new equation:",
+                equation: "g(x) = ?",
+                options: ["g(x) = |x - 5| - 3", "g(x) = |x + 5| - 3", "g(x) = |x - 3| - 5", "g(x) = -|x - 5| + 3"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Shift right 5 &rarr; <code>h = 5</code>.",
+                    "2. Shift down 3 &rarr; <code>k = -3</code>.",
+                    "3. <code>g(x) = |x - 5| - 3</code>."
+                ]
+            },
+            {
+                id: "u2d2_5", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
+                prompt: "What is the y-intercept of the function:",
+                equation: "f(x) = 3|x - 2| - 4",
+                options: ["(0, 2)", "(0, -4)", "(0, 6)", "(0, 10)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Set <code>x = 0</code>.",
+                    "2. <code>f(0) = 3|0 - 2| - 4 = 3(2) - 4 = 6 - 4 = 2</code>.",
+                    "3. Y-intercept is <strong>(0, 2)</strong>."
+                ]
+            },
+
+            // UNIT 2 DAY 3
+            {
+                id: "u2d3_1", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
+                prompt: "Solve the absolute value equation:",
+                equation: "|2x - 5| = 11",
+                options: ["x = 8 or x = -3", "x = 8 or x = 3", "x = -8 or x = 3", "x = 8 only"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Split: <code>2x - 5 = 11</code> or <code>2x - 5 = -11</code>.",
+                    "2. Case 1: <code>2x = 16</code> &rarr; <code>x = 8</code>.",
+                    "3. Case 2: <code>2x = -6</code> &rarr; <code>x = -3</code>."
+                ]
+            },
+            {
+                id: "u2d3_2", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
+                prompt: "Isolate the absolute value and solve:",
+                equation: "3|x + 2| - 4 = 14",
+                options: ["x = 4 or x = -8", "x = 6 or x = -6", "x = 4 or x = 8", "No Solution"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Add 4: <code>3|x + 2| = 18</code>.",
+                    "2. Divide by 3: <code>|x + 2| = 6</code>.",
+                    "3. Split: <code>x + 2 = 6</code> &rarr; <code>x = 4</code> | <code>x + 2 = -6</code> &rarr; <code>x = -8</code>."
+                ]
+            },
+            {
+                id: "u2d3_3", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
+                prompt: "Solve the equation:",
+                equation: "|4x + 1| = -7",
+                options: ["No Solution", "x = 3/2 or x = -2", "x = -2 only", "x = 0"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Absolute value distance can NEVER equal a negative number.",
+                    "2. <code>|4x + 1| = -7</code> has <strong>No Solution</strong>."
+                ]
+            },
+            {
+                id: "u2d3_4", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
+                prompt: "Check for extraneous solutions in the equation:",
+                equation: "|x + 3| = 2x - 1",
+                options: ["x = 4 only (x = -2/3 is extraneous)", "x = -2/3 only", "x = 4 and x = -2/3", "No Solution"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Case 1: <code>x + 3 = 2x - 1</code> &rarr; <code>x = 4</code>. Check: <code>|7| = 7</code> (Valid).",
+                    "2. Case 2: <code>x + 3 = -(2x - 1)</code> &rarr; <code>3x = -2</code> &rarr; <code>x = -2/3</code>. Check: <code>|7/3| = -7/3</code> (Invalid!).",
+                    "3. <strong>x = 4 only</strong>."
+                ]
+            },
+            {
+                id: "u2d3_5", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "fill",
+                prompt: "Solve for the positive value of x:",
+                equation: "|3x - 9| = 18",
+                correctAnswer: "9",
+                solutionSteps: [
+                    "1. Split: <code>3x - 9 = 18</code> &rarr; <code>3x = 27</code> &rarr; <code>x = 9</code>.",
+                    "2. Split: <code>3x - 9 = -18</code> &rarr; <code>3x = -9</code> &rarr; <code>x = -3</code>.",
+                    "3. Positive value is <strong>9</strong>."
+                ]
+            },
+
+            // UNIT 2 DAY 4
+            {
+                id: "u2d4_1", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
+                prompt: "Convert the compound inequality to interval notation: -3 ≤ x < 5",
+                equation: "-3 ≤ x < 5",
+                options: ["[-3, 5)", "(-3, 5]", "[-3, 5]", "(-3, 5)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Square bracket <code>[</code> for inclusive <code>≤</code>.",
+                    "2. Parenthesis <code>)</code> for strict inequality <code><</code>.",
+                    "3. Interval notation: <strong>[-3, 5)</strong>."
+                ]
+            },
+            {
+                id: "u2d4_2", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
+                prompt: "Convert to interval notation: x < -2 OR x ≥ 6",
+                equation: "x < -2 or x ≥ 6",
+                options: ["(-∞, -2) ∪ [6, ∞)", "[-2, 6]", "(-∞, -2] ∪ (6, ∞)", "(-2, 6]"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. <code>x < -2</code> translates to <code>(-∞, -2)</code>.",
+                    "2. <code>x ≥ 6</code> translates to <code>[6, ∞)</code>.",
+                    "3. Joined by union symbol <code>∪</code>: <strong>(-∞, -2) ∪ [6, ∞)</strong>."
+                ]
+            },
+            {
+                id: "u2d4_3", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
+                prompt: "Solve the compound AND inequality: -8 < 2x + 2 ≤ 12",
+                equation: "-8 < 2x + 2 ≤ 12",
+                options: ["-5 < x ≤ 5", "-3 < x ≤ 7", "-5 ≤ x < 5", "-10 < x ≤ 10"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Subtract 2 from all parts: <code>-10 < 2x ≤ 10</code>.",
+                    "2. Divide by 2: <code>-5 < x ≤ 5</code>."
+                ]
+            },
+            {
+                id: "u2d4_4", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
+                prompt: "Express 'all real numbers except x = 4' in interval notation:",
+                equation: "x ≠ 4",
+                options: ["(-∞, 4) ∪ (4, ∞)", "(-∞, 4]", "[4, ∞)", "(-∞, ∞)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Exclude 4 by splitting at 4 with open parentheses: <strong>(-∞, 4) ∪ (4, ∞)</strong>."
+                ]
+            },
+            {
+                id: "u2d4_5", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
+                prompt: "Solve the OR compound inequality: 3x - 1 < -10 OR 2x + 5 ≥ 11",
+                equation: "3x - 1 < -10 or 2x + 5 ≥ 11",
+                options: ["x < -3 or x ≥ 3", "x < -3 and x ≥ 3", "-3 < x ≤ 3", "x < 3 or x ≥ -3"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Part 1: <code>3x < -9</code> &rarr; <code>x < -3</code>.",
+                    "2. Part 2: <code>2x ≥ 6</code> &rarr; <code>x ≥ 3</code>.",
+                    "3. Solution: <strong>x < -3 or x ≥ 3</strong>."
+                ]
+            },
+
+            // UNIT 2 DAY 5
+            {
+                id: "u2d5_1", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
+                prompt: "The weight of marshmallows in Lucky Charms per box is 80 grams plus or minus 0.5 grams. Write an absolute value inequality for acceptable weights:",
+                equation: "Target = 80g, Tolerance = 0.5g",
+                options: ["|x - 80| ≤ 0.5", "|x - 0.5| ≤ 80", "|x - 80| ≥ 0.5", "|x - 0.5| ≥ 80"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Formula: <code>|Actual - Target| ≤ Tolerance</code>.",
+                    "2. Target = 80, Tolerance = 0.5.",
+                    "3. Inequality: <strong>|x - 80| ≤ 0.5</strong>."
+                ]
+            },
+            {
+                id: "u2d5_2", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
+                prompt: "Solve the absolute value inequality:",
+                equation: "|3x - 6| < 12",
+                options: ["-2 < x < 6", "x > 6 or x < -2", "-6 < x < 2", "x < 6"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. 'Less Than' means AND conjunction: <code>-12 < 3x - 6 < 12</code>.",
+                    "2. Add 6: <code>-6 < 3x < 18</code>.",
+                    "3. Divide by 3: <strong>-2 < x < 6</strong>."
+                ]
+            },
+            {
+                id: "u2d5_3", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
+                prompt: "Solve the absolute value inequality:",
+                equation: "|2x + 4| ≥ 10",
+                options: ["x ≥ 3 or x ≤ -7", "-7 ≤ x ≤ 3", "x ≥ 3 only", "x ≤ -7 only"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. 'Greater Than or Equal' means OR disjunction.",
+                    "2. <code>2x + 4 ≥ 10</code> &rarr; <code>2x ≥ 6</code> &rarr; <code>x ≥ 3</code>.",
+                    "3. <code>2x + 4 ≤ -10</code> &rarr; <code>2x ≤ -14</code> &rarr; <code>x ≤ -7</code>.",
+                    "4. Solution: <strong>x ≥ 3 or x ≤ -7</strong>."
+                ]
+            },
+            {
+                id: "u2d5_4", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
+                prompt: "A smartphone battery must weigh 45g with a tolerance of 1.2g. Write the inequality for UNACCEPTABLE weights:",
+                equation: "Target = 45g, Tolerance = 1.2g (Unacceptable)",
+                options: ["|x - 45| > 1.2", "|x - 45| ≤ 1.2", "|x - 1.2| > 45", "|x + 45| > 1.2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Unacceptable weights fall outside the tolerance threshold.",
+                    "2. Formula: <code>|Actual - Target| > Tolerance</code>.",
+                    "3. Inequality: <strong>|x - 45| > 1.2</strong>."
+                ]
+            },
+            {
+                id: "u2d5_5", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
+                prompt: "Solve the inequality:",
+                equation: "|x - 7| + 5 < 2",
+                options: ["No Solution", "All Real Numbers", "x < 4", "-4 < x < 10"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Subtract 5: <code>|x - 7| < -3</code>.",
+                    "2. Absolute value distance can NEVER be less than a negative number.",
+                    "3. Solution: <strong>No Solution</strong>."
+                ]
+            },
+
+            // UNIT 3 DAY 1
+            {
+                id: "u3d1_1", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
+                prompt: "Identify the vertex of the quadratic function in vertex form:",
+                equation: "f(x) = 2(x - 4)² - 5",
+                options: ["(4, -5)", "(-4, -5)", "(4, 5)", "(-4, 5)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Vertex form: <code>f(x) = a(x - h)² + k</code>.",
+                    "2. Vertex is <code>(h, k)</code>.",
+                    "3. <code>h = 4</code> and <code>k = -5</code> &rarr; Vertex is <strong>(4, -5)</strong>."
+                ]
+            },
+            {
+                id: "u3d1_2", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
+                prompt: "Does the parabola have a minimum or maximum value?",
+                equation: "f(x) = -3(x + 1)² + 8",
+                options: ["Maximum at y = 8", "Minimum at y = 8", "Maximum at y = -1", "Minimum at y = -1"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Coefficient <code>a = -3</code> is negative, so parabola opens DOWNWARD.",
+                    "2. A downward-opening parabola has a <strong>Maximum</strong> at its vertex y-value (<code>y = 8</code>)."
+                ]
+            },
+            {
+                id: "u3d1_3", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
+                prompt: "Identify the axis of symmetry for f(x) = 1/2(x + 6)² - 2:",
+                equation: "f(x) = 1/2(x + 6)² - 2",
+                options: ["x = -6", "x = 6", "x = -2", "y = -6"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Axis of symmetry is <code>x = h</code>.",
+                    "2. <code>x + 6 = 0</code> &rarr; <code>x = -6</code>."
+                ]
+            },
+            {
+                id: "u3d1_4", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
+                prompt: "Determine the range of f(x) = (x - 3)² + 4:",
+                equation: "f(x) = (x - 3)² + 4",
+                options: ["[4, ∞)", "(-∞, 4]", "[3, ∞)", "(-∞, ∞)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Vertex is <code>(3, 4)</code> and <code>a = 1 > 0</code> (opens upward).",
+                    "2. Range is <strong>[4, ∞)</strong>."
+                ]
+            },
+            {
+                id: "u3d1_5", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
+                prompt: "Transform parent f(x)=x² by shifting left 2, reflecting over x-axis, and shifting up 5:",
+                equation: "g(x) = ?",
+                options: ["g(x) = -(x + 2)² + 5", "g(x) = -(x - 2)² + 5", "g(x) = (x + 2)² - 5", "g(x) = -x² - 2 + 5"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Shift left 2 &rarr; <code>(x + 2)²</code>.",
+                    "2. Reflect across x-axis &rarr; negative sign in front.",
+                    "3. Shift up 5 &rarr; <code>+ 5</code>.",
+                    "4. Equation: <strong>g(x) = -(x + 2)² + 5</strong>."
+                ]
+            },
+
+            // UNIT 3 DAY 2
+            {
+                id: "u3d2_1", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
+                prompt: "Find the x-intercepts of the quadratic function in intercept form:",
+                equation: "f(x) = (x - 5)(x + 2)",
+                options: ["(5, 0) and (-2, 0)", "(-5, 0) and (2, 0)", "(5, 0) and (2, 0)", "(0, 5) and (0, -2)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Set <code>f(x) = 0</code> &rarr; <code>(x - 5)(x + 2) = 0</code>.",
+                    "2. <code>x = 5</code> or <code>x = -2</code>.",
+                    "3. X-intercepts: <strong>(5, 0) and (-2, 0)</strong>."
+                ]
+            },
+            {
+                id: "u3d2_2", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
+                prompt: "Find the x-coordinate of the vertex for standard form quadratic f(x) = x² - 6x + 8:",
+                equation: "f(x) = x² - 6x + 8",
+                options: ["x = 3", "x = -3", "x = 6", "x = 4"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Use formula <code>x = -b / (2a)</code>.",
+                    "2. Here <code>a = 1, b = -6</code> &rarr; <code>x = -(-6) / (2*1) = 6 / 2 = 3</code>."
+                ]
+            },
+            {
+                id: "u3d2_3", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
+                prompt: "Find the y-intercept of standard form quadratic:",
+                equation: "f(x) = 2x² - 4x - 7",
+                options: ["(0, -7)", "(0, 2)", "(0, -4)", "(0, 7)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Plug in <code>x = 0</code>.",
+                    "2. <code>f(0) = 2(0)² - 4(0) - 7 = -7</code>.",
+                    "3. Y-intercept: <strong>(0, -7)</strong>."
+                ]
+            },
+            {
+                id: "u3d2_4", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
+                prompt: "Convert intercept form f(x) = 2(x - 1)(x + 3) to standard form:",
+                equation: "f(x) = 2(x - 1)(x + 3)",
+                options: ["f(x) = 2x² + 4x - 6", "f(x) = 2x² + 2x - 3", "f(x) = 2x² - 4x - 6", "f(x) = 2x² + 6x - 6"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Expand brackets: <code>(x - 1)(x + 3) = x² + 2x - 3</code>.",
+                    "2. Multiply by 2: <code>2(x² + 2x - 3) = 2x² + 4x - 6</code>."
+                ]
+            },
+            {
+                id: "u3d2_5", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
+                prompt: "Find the vertex of f(x) = x² + 4x + 1:",
+                equation: "f(x) = x² + 4x + 1",
+                options: ["(-2, -3)", "(2, 13)", "(-2, 1)", "(2, -3)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. <code>x = -b / (2a) = -4 / 2 = -2</code>.",
+                    "2. Plug in <code>x = -2</code>: <code>f(-2) = (-2)² + 4(-2) + 1 = 4 - 8 + 1 = -3</code>.",
+                    "3. Vertex: <strong>(-2, -3)</strong>."
+                ]
+            },
+
+            // UNIT 3 DAY 3
+            {
+                id: "u3d3_1", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
+                prompt: "Factor the trinomial completely:",
+                equation: "x² - 7x + 12",
+                options: ["(x - 3)(x - 4)", "(x - 6)(x - 2)", "(x + 3)(x + 4)", "(x - 12)(x - 1)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Find two numbers that multiply to +12 and add to -7.",
+                    "2. Numbers are -3 and -4.",
+                    "3. Factored form: <strong>(x - 3)(x - 4)</strong>."
+                ]
+            },
+            {
+                id: "u3d3_2", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
+                prompt: "Factor the difference of squares:",
+                equation: "4x² - 25",
+                options: ["(2x - 5)(2x + 5)", "(2x - 5)²", "(4x - 5)(x + 5)", "(2x + 25)(2x - 1)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Difference of squares formula: <code>a² - b² = (a - b)(a + b)</code>.",
+                    "2. <code>a = 2x, b = 5</code>.",
+                    "3. Factored form: <strong>(2x - 5)(2x + 5)</strong>."
+                ]
+            },
+            {
+                id: "u3d3_3", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
+                prompt: "Factor by grouping / AC method:",
+                equation: "2x² + 7x + 3",
+                options: ["(2x + 1)(x + 3)", "(2x + 3)(x + 1)", "(2x + 6)(x + 1)", "(x + 7)(2x + 3)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. AC = 2 * 3 = 6. Two numbers that multiply to 6 and add to 7 are 6 and 1.",
+                    "2. Rewrite: <code>2x² + 6x + 1x + 3</code>.",
+                    "3. Group: <code>2x(x + 3) + 1(x + 3) = (2x + 1)(x + 3)</code>."
+                ]
+            },
+            {
+                id: "u3d3_4", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
+                prompt: "Factor out the GCF first:",
+                equation: "3x² - 12x - 36",
+                options: ["3(x - 6)(x + 2)", "3(x - 3)(x + 4)", "(3x - 18)(x + 2)", "3(x - 2)(x + 6)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor out GCF of 3: <code>3(x² - 4x - 12)</code>.",
+                    "2. Factor trinomial inside: <code>(x - 6)(x + 2)</code>.",
+                    "3. Final answer: <strong>3(x - 6)(x + 2)</strong>."
+                ]
+            },
+            {
+                id: "u3d3_5", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
+                prompt: "Factor completely:",
+                equation: "x² - 16",
+                options: ["(x - 4)(x + 4)", "(x - 4)²", "(x + 4)²", "(x - 8)(x + 2)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Difference of squares: <code>a² - b² = (a - b)(a + b)</code>.",
+                    "2. <code>(x - 4)(x + 4)</code>."
+                ]
+            },
+
+            // UNIT 3 DAY 4
+            {
+                id: "u3d4_1", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
+                prompt: "Solve the equation by factoring:",
+                equation: "x² - 5x - 14 = 0",
+                options: ["x = 7 or x = -2", "x = -7 or x = 2", "x = 14 or x = -1", "x = 7 or x = 2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor: <code>(x - 7)(x + 2) = 0</code>.",
+                    "2. Apply Zero Product Property: <code>x - 7 = 0</code> or <code>x + 2 = 0</code>.",
+                    "3. <strong>x = 7 or x = -2</strong>."
+                ]
+            },
+            {
+                id: "u3d4_2", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
+                prompt: "Solve by factoring:",
+                equation: "3x² - 12x = 0",
+                options: ["x = 0 or x = 4", "x = 4 only", "x = 0 or x = -4", "x = 3 or x = 4"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor GCF: <code>3x(x - 4) = 0</code>.",
+                    "2. Set factors to 0: <code>3x = 0</code> &rarr; <code>x = 0</code> | <code>x - 4 = 0</code> &rarr; <code>x = 4</code>."
+                ]
+            },
+            {
+                id: "u3d4_3", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
+                prompt: "Solve by factoring:",
+                equation: "x² - 9x + 20 = 0",
+                options: ["x = 4 or x = 5", "x = -4 or x = -5", "x = 20 or x = 1", "x = 10 or x = 2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor: <code>(x - 4)(x - 5) = 0</code>.",
+                    "2. <code>x = 4</code> or <code>x = 5</code>."
+                ]
+            },
+            {
+                id: "u3d4_4", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "fill",
+                prompt: "Find the positive solution to x² - 64 = 0:",
+                equation: "x² - 64 = 0",
+                correctAnswer: "8",
+                solutionSteps: [
+                    "1. Factor: <code>(x - 8)(x + 8) = 0</code>.",
+                    "2. Solutions: <code>x = 8</code> or <code>x = -8</code>.",
+                    "3. Positive solution requested: <strong>8</strong>."
+                ]
+            },
+            {
+                id: "u3d4_5", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
+                prompt: "Solve 2x² + 5x - 3 = 0 by factoring:",
+                equation: "2x² + 5x - 3 = 0",
+                options: ["x = 1/2 or x = -3", "x = -1/2 or x = 3", "x = 2 or x = -3", "x = 3 or x = -1/2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor: <code>(2x - 1)(x + 3) = 0</code>.",
+                    "2. <code>2x - 1 = 0</code> &rarr; <code>x = 1/2</code>.",
+                    "3. <code>x + 3 = 0</code> &rarr; <code>x = -3</code>."
+                ]
+            },
+
+            // UNIT 3 DAY 5
+            {
+                id: "u3d5_1", unit: "unit3", topic: "u3d5", dayLabel: "U3 Day 5", type: "mcq",
+                prompt: "Solve the quadratic inequality:",
+                equation: "x² - 4x - 5 < 0",
+                options: ["-1 < x < 5", "x < -1 or x > 5", "1 < x < 5", "-5 < x < 1"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Find critical boundary points by factoring: <code>(x - 5)(x + 1) = 0</code> &rarr; <code>x = 5, -1</code>.",
+                    "2. Parabola opens UP. Below zero (negative) between the roots.",
+                    "3. Solution: <strong>-1 < x < 5</strong>."
+                ]
+            },
+            {
+                id: "u3d5_2", unit: "unit3", topic: "u3d5", dayLabel: "U3 Day 5", type: "mcq",
+                prompt: "Solve the quadratic inequality:",
+                equation: "x² - 9 ≥ 0",
+                options: ["x ≤ -3 or x ≥ 3", "-3 ≤ x ≤ 3", "x ≥ 3 only", "x ≤ -3 only"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Roots at <code>x = 3</code> and <code>x = -3</code>.",
+                    "2. Since expression is <code>≥ 0</code>, solution lies on outer intervals.",
+                    "3. Solution: <strong>x ≤ -3 or x ≥ 3</strong>."
+                ]
+            },
+            {
+                id: "u3d5_3", unit: "unit3", topic: "u3d5", dayLabel: "U3 Day 5", type: "mcq",
+                prompt: "Solve the inequality: x² + 2x - 8 > 0",
+                equation: "x² + 2x - 8 > 0",
+                options: ["x < -4 or x > 2", "-4 < x < 2", "x < -2 or x > 4", "-2 < x < 4"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor: <code>(x + 4)(x - 2) > 0</code>.",
+                    "2. Critical points at <code>x = -4</code> and <code>x = 2</code>.",
+                    "3. Greater than zero &rarr; Outer intervals: <strong>x < -4 or x > 2</strong>."
+                ]
+            },
+
+            // UNIT 3 DAY 6
+            {
+                id: "u3d6_1", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
+                prompt: "Simplify the complex number expression:",
+                equation: "(4 + 3i) + (2 - 5i)",
+                options: ["6 - 2i", "6 + 2i", "2 - 2i", "6 - 8i"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Combine real parts: <code>4 + 2 = 6</code>.",
+                    "2. Combine imaginary parts: <code>3i - 5i = -2i</code>.",
+                    "3. Result: <strong>6 - 2i</strong>."
+                ]
+            },
+            {
+                id: "u3d6_2", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
+                prompt: "Multiply the complex numbers (Remember i² = -1):",
+                equation: "(2 + 4i)(3 - i)",
+                options: ["10 + 10i", "2 + 10i", "10 + 14i", "6 - 4i"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. FOIL: <code>2(3) + 2(-i) + 4i(3) + 4i(-i) = 6 - 2i + 12i - 4i²</code>.",
+                    "2. Substitute <code>i² = -1</code> &rarr; <code>6 + 10i - 4(-1) = 6 + 10i + 4 = 10 + 10i</code>."
+                ]
+            },
+            {
+                id: "u3d6_3", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
+                prompt: "Simplify power of i: i^27",
+                equation: "i²⁷",
+                options: ["-i", "i", "1", "-1"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Divide exponent 27 by 4 &rarr; remainder 3.",
+                    "2. <code>i²⁷ = i³ = -i</code>."
+                ]
+            },
+            {
+                id: "u3d6_4", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
+                prompt: "Find the complex conjugate of 5 - 7i:",
+                equation: "z = 5 - 7i",
+                options: ["5 + 7i", "-5 + 7i", "-5 - 7i", "7 - 5i"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Conjugate flips the sign of imaginary part.",
+                    "2. Conjugate of <code>5 - 7i</code> is <strong>5 + 7i</strong>."
+                ]
+            },
+
+            // UNIT 3 DAY 7
+            {
+                id: "u3d7_1", unit: "unit3", topic: "u3d7", dayLabel: "U3 Day 7", type: "mcq",
+                prompt: "Solve using the Square Root Property:",
+                equation: "x² - 49 = 0",
+                options: ["x = ±7", "x = 7 only", "x = ±49", "x = ±14"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Isolate square: <code>x² = 49</code>.",
+                    "2. Take square root: <code>x = ±√49 = ±7</code>."
+                ]
+            },
+            {
+                id: "u3d7_2", unit: "unit3", topic: "u3d7", dayLabel: "U3 Day 7", type: "mcq",
+                prompt: "Solve using the Square Root Property:",
+                equation: "(x - 3)² = 16",
+                options: ["x = 7 or x = -1", "x = 7 or x = 1", "x = 19 or x = -13", "x = ±4"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Take square root: <code>x - 3 = ±4</code>.",
+                    "2. Case 1: <code>x - 3 = 4</code> &rarr; <code>x = 7</code>.",
+                    "3. Case 2: <code>x - 3 = -4</code> &rarr; <code>x = -1</code>."
+                ]
+            },
+            {
+                id: "u3d7_3", unit: "unit3", topic: "u3d7", dayLabel: "U3 Day 7", type: "mcq",
+                prompt: "Solve for imaginary roots using Square Root Property:",
+                equation: "2x² + 32 = 0",
+                options: ["x = ±4i", "x = ±4", "x = ±16i", "x = ±2i√2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Isolate x²: <code>2x² = -32</code> &rarr; <code>x² = -16</code>.",
+                    "2. Take square root: <code>x = ±√(-16) = ±4i</code>."
+                ]
+            },
+
+            // UNIT 3 DAY 8
+            {
+                id: "u3d8_1", unit: "unit3", topic: "u3d8", dayLabel: "U3 Day 8", type: "mcq",
+                prompt: "What value completes the square for x² - 10x + c?",
+                equation: "x² - 10x + c",
+                options: ["25", "100", "-25", "5"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Formula: <code>c = (b / 2)²</code>.",
+                    "2. Here <code>b = -10</code> &rarr; <code>(-10 / 2)² = (-5)² = 25</code>."
+                ]
+            },
+            {
+                id: "u3d8_2", unit: "unit3", topic: "u3d8", dayLabel: "U3 Day 8", type: "mcq",
+                prompt: "Solve by completing the square:",
+                equation: "x² + 6x - 7 = 0",
+                options: ["x = 1 or x = -7", "x = -1 or x = 7", "x = 3 or x = -3", "x = 4 or x = -10"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Move constant: <code>x² + 6x = 7</code>.",
+                    "2. Add <code>(6/2)² = 9</code> to both sides: <code>x² + 6x + 9 = 16</code>.",
+                    "3. Factor: <code>(x + 3)² = 16</code> &rarr; <code>x + 3 = ±4</code>.",
+                    "4. Solutions: <strong>x = 1 or x = -7</strong>."
+                ]
+            },
+
+            // UNIT 3 DAY 9
+            {
+                id: "u3d9_1", unit: "unit3", topic: "u3d9", dayLabel: "U3 Day 9", type: "mcq",
+                prompt: "Solve the non-linear system of equations:",
+                equation: "y = x² - 4 and y = 2x - 1",
+                options: ["(3, 5) and (-1, -3)", "(3, 2) and (-1, 0)", "(4, 7) and (-2, -5)", "No Solution"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Set equations equal: <code>x² - 4 = 2x - 1</code>.",
+                    "2. Rearrange: <code>x² - 2x - 3 = 0</code>.",
+                    "3. Factor: <code>(x - 3)(x + 1) = 0</code> &rarr; <code>x = 3</code> or <code>x = -1</code>.",
+                    "4. Find y-values: <code>x = 3 &rarr; y = 5</code> | <code>x = -1 &rarr; y = -3</code>."
+                ]
+            },
+
+            // UNIT 3 DAY 10
+            {
+                id: "u3d10_1", unit: "unit3", topic: "u3d10", dayLabel: "U3 Day 10", type: "mcq",
+                prompt: "Find the discriminant and state the number/type of solutions:",
+                equation: "2x² - 4x + 5 = 0",
+                options: [
+                    "Discriminant = -24 (2 Complex/Imaginary Solutions)",
+                    "Discriminant = 56 (2 Real Irrational Solutions)",
+                    "Discriminant = 0 (1 Real Solution)",
+                    "Discriminant = 16 (2 Real Rational Solutions)"
+                ],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Discriminant formula: <code>Δ = b² - 4ac</code>.",
+                    "2. <code>a = 2, b = -4, c = 5</code>.",
+                    "3. <code>Δ = (-4)² - 4(2)(5) = 16 - 40 = -24</code>.",
+                    "4. Since <code>Δ < 0</code>, there are <strong>2 Complex / Imaginary Solutions</strong>."
+                ]
+            },
+            {
+                id: "u3d10_2", unit: "unit3", topic: "u3d10", dayLabel: "U3 Day 10", type: "mcq",
+                prompt: "Solve using the Quadratic Formula: x² - 6x + 8 = 0",
+                equation: "x² - 6x + 8 = 0",
+                options: ["x = 4 or x = 2", "x = -4 or x = -2", "x = 6 or x = 8", "x = 3 or x = 1"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Quadratic Formula: <code>x = [-b ± √(b² - 4ac)] / (2a)</code>.",
+                    "2. <code>a = 1, b = -6, c = 8</code> &rarr; <code>x = [6 ± √(36 - 32)] / 2 = [6 ± 2] / 2</code>.",
+                    "3. <code>x = 8/2 = 4</code> or <code>x = 4/2 = 2</code>."
+                ]
+            }
+        ];
+
+        /*
+         * Application State Variables
+         */
+        let activeQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let maxStreak = 0;
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let userAnswers = [];
+
+        // DOM Element Cache
+        const setupScreen = document.getElementById('setupScreen');
+        const quizScreen = document.getElementById('quizScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+
+        const unitSelect = document.getElementById('unitSelect');
+        const topicSelect = document.getElementById('topicSelect');
+        const countSelect = document.getElementById('countSelect');
+
+        const currentQNum = document.getElementById('currentQNum');
+        const totalQNum = document.getElementById('totalQNum');
+        const dayBadge = document.getElementById('dayBadge');
+        const progressBar = document.getElementById('progressBar');
+
+        const ratioBarRed = document.getElementById('ratioBarRed');
+        const ratioBarGreen = document.getElementById('ratioBarGreen');
+        const incorrectRatioText = document.getElementById('incorrectRatioText');
+        const correctRatioText = document.getElementById('correctRatioText');
+
+        const questionPrompt = document.getElementById('questionPrompt');
+        const questionEquation = document.getElementById('questionEquation');
+        const answersContainer = document.getElementById('answersContainer');
+
+        const feedbackBox = document.getElementById('feedbackBox');
+        const feedbackTitle = document.getElementById('feedbackTitle');
+        const feedbackBody = document.getElementById('feedbackBody');
+        const nextBtn = document.getElementById('nextBtn');
+        const headerResetBtn = document.getElementById('headerResetBtn');
+
+        // Initialize dynamic topic selection options
+        function onUnitChange() {
+            const selectedUnit = unitSelect.value;
+            topicSelect.innerHTML = '';
+
+            let optionsToLoad = [];
+            if (selectedUnit === 'all') {
+                optionsToLoad = [{ id: "all", name: "All Topics Across Units" }];
+            } else {
+                optionsToLoad = topicMap[selectedUnit] || [];
+            }
+
+            optionsToLoad.forEach(topic => {
+                const opt = document.createElement('option');
+                opt.value = topic.id;
+                opt.textContent = topic.name;
+                topicSelect.appendChild(opt);
+            });
+        }
+
+        // Initialize topic dropdown on startup
+        window.addEventListener('DOMContentLoaded', () => {
+            onUnitChange();
+        });
+
+        // Start Quiz Execution
+        function startQuiz() {
+            const unitVal = unitSelect.value;
+            const topicVal = topicSelect.value;
+            const countVal = countSelect.value;
+
+            // Filter question bank based on user selection
+            activeQuestions = questionBank.filter(q => {
+                const matchUnit = (unitVal === 'all' || q.unit === unitVal);
+                const matchTopic = (topicVal === 'all' || q.topic === topicVal);
+                return matchUnit && matchTopic;
+            });
+
+            if (activeQuestions.length === 0) {
+                alert("No questions available for the selected combination. Please choose another option!");
+                return;
+            }
+
+            // Shuffle questions
+            activeQuestions.sort(() => Math.random() - 0.5);
+
+            // Limit question count if requested
+            if (countVal !== 'all') {
+                const limit = parseInt(countVal, 10);
+                if (!isNaN(limit) && limit > 0) {
+                    activeQuestions = activeQuestions.slice(0, limit);
+                }
+            }
+
+            // Reset quiz session state
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            timerSeconds = 0;
+            userAnswers = [];
+
+            // Update Header & Ratio display
+            totalQNum.textContent = activeQuestions.length;
+            updateStatsDisplays();
+            updateAccuracyRatioBar();
+
+            // Toggle active screens
+            setupScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerResetBtn.classList.remove('hidden');
+
+            // Timer management
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        // Timer Display
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+            const secs = (timerSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('timerDisplay').textContent = `${mins}:${secs}`;
+        }
+
+        function updateStatsDisplays() {
+            document.getElementById('streakDisplay').textContent = streak;
+        }
+
+        // DUAL COLOR RED / GREEN ACCURACY RATIO BAR LOGIC
+        function updateAccuracyRatioBar() {
+            const totalAnswered = userAnswers.length;
+
+            if (totalAnswered === 0) {
+                ratioBarRed.style.width = '0%';
+                ratioBarGreen.style.width = '0%';
+                incorrectRatioText.innerHTML = `<i class="fa-solid fa-xmark"></i> 0 Incorrect (0%)`;
+                correctRatioText.innerHTML = `<i class="fa-solid fa-check"></i> 0 Correct (0%)`;
+                return;
+            }
+
+            const correctCount = userAnswers.filter(a => a.correct).length;
+            const incorrectCount = totalAnswered - correctCount;
+
+            const greenPercent = Math.round((correctCount / totalAnswered) * 100);
+            const redPercent = Math.round((incorrectCount / totalAnswered) * 100);
+
+            ratioBarRed.style.width = `${redPercent}%`;
+            ratioBarGreen.style.width = `${greenPercent}%`;
+
+            incorrectRatioText.innerHTML = `<i class="fa-solid fa-xmark"></i> ${incorrectCount} Incorrect (${redPercent}%)`;
+            correctRatioText.innerHTML = `<i class="fa-solid fa-check"></i> ${correctCount} Correct (${greenPercent}%)`;
+        }
+
+        // LOAD CURRENT QUESTION
+        function loadQuestion() {
+            const q = activeQuestions[currentIndex];
+
+            feedbackBox.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            answersContainer.innerHTML = '';
+
+            currentQNum.textContent = currentIndex + 1;
+            dayBadge.textContent = q.dayLabel || "Algebra 2";
+
+            // Main Progress Line
+            const progressPercent = (currentIndex / activeQuestions.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            questionPrompt.textContent = q.prompt;
+            questionEquation.innerHTML = q.equation;
+
+            if (q.type === 'mcq') {
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn w-full text-left p-3.5 md:p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 text-xs md:text-sm font-medium flex items-center justify-between";
+                    btn.onclick = () => handleMCQAnswer(idx, btn);
+                    btn.innerHTML = `
+                        <span>${opt}</span>
+                        <span class="w-6 h-6 rounded-full border border-slate-700 flex items-center justify-center text-xs font-semibold text-slate-500">${String.fromCharCode(65 + idx)}</span>
+                    `;
+                    answersContainer.appendChild(btn);
+                });
+            } else if (q.type === 'fill') {
+                const fillWrapper = document.createElement('div');
+                fillWrapper.className = "space-y-3";
+                fillWrapper.innerHTML = `
+                    <div class="flex gap-2">
+                        <input type="text" id="fillInput" placeholder="Type your numeric answer..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 text-sm font-mono focus:outline-none focus:border-blue-500">
+                        <button onclick="handleFillAnswer()" class="px-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl">Submit</button>
+                    </div>
+                `;
+                answersContainer.appendChild(fillWrapper);
+            }
+        }
+
+        // MCQ Selection Logic
+        function handleMCQAnswer(selectedIdx, clickedBtn) {
+            const q = activeQuestions[currentIndex];
+            const isCorrect = (selectedIdx === q.correctIndex);
+
+            const allBtns = answersContainer.querySelectorAll('button');
+            allBtns.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                clickedBtn.classList.remove('bg-slate-900', 'border-slate-800');
+                clickedBtn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+                handleCorrectAnswer();
+            } else {
+                clickedBtn.classList.remove('bg-slate-900', 'border-slate-800');
+                clickedBtn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-300');
+                
+                // Highlight correct option
+                allBtns[q.correctIndex].classList.remove('bg-slate-900', 'border-slate-800');
+                allBtns[q.correctIndex].classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+                
+                handleIncorrectAnswer();
+            }
+
+            userAnswers.push({ question: q, correct: isCorrect });
+            updateAccuracyRatioBar();
+            showFeedback(isCorrect, q.solutionSteps);
+        }
+
+        // Fill-in-the-blank Logic
+        function handleFillAnswer() {
+            const input = document.getElementById('fillInput');
+            if (!input || !input.value.trim()) return;
+
+            const q = activeQuestions[currentIndex];
+            const userVal = input.value.trim();
+            const isCorrect = (userVal.toLowerCase() === q.correctAnswer.toLowerCase());
+
+            input.disabled = true;
+
+            if (isCorrect) {
+                input.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-300');
+                handleCorrectAnswer();
+            } else {
+                input.classList.add('border-rose-500', 'bg-rose-500/10', 'text-rose-300');
+                handleIncorrectAnswer();
+            }
+
+            userAnswers.push({ question: q, correct: isCorrect });
+            updateAccuracyRatioBar();
+            showFeedback(isCorrect, q.solutionSteps);
+        }
+
+        function handleCorrectAnswer() {
+            score += 10;
+            streak++;
+            if (streak > maxStreak) maxStreak = streak;
+            updateStatsDisplays();
+        }
+
+        function handleIncorrectAnswer() {
+            streak = 0;
+            updateStatsDisplays();
+        }
+
+        // Render Step-by-Step Solution
+        function showFeedback(isCorrect, steps) {
+            feedbackBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'bg-rose-500/10', 'border-rose-500/30');
+
+            if (isCorrect) {
+                feedbackBox.classList.add('bg-emerald-500/10', 'border-emerald-500/30');
+                feedbackTitle.className = "flex items-center gap-2 font-bold text-base md:text-lg text-emerald-400";
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check"></i> Correct! Excellent Work!`;
+            } else {
+                feedbackBox.classList.add('bg-rose-500/10', 'border-rose-500/30');
+                feedbackTitle.className = "flex items-center gap-2 font-bold text-base md:text-lg text-rose-400";
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Incorrect`;
+            }
+
+            let stepsHTML = `<div class="font-semibold text-slate-200 mb-1">Step-by-Step Solution:</div><ul class="space-y-1 text-slate-300">`;
+            steps.forEach(step => {
+                stepsHTML += `<li>${step}</li>`;
+            });
+            stepsHTML += `</ul>`;
+
+            feedbackBody.innerHTML = stepsHTML;
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < activeQuestions.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // RESET CURRENT ACTIVE QUIZ IN-PLACE
+        function resetCurrentQuiz() {
+            if (activeQuestions.length === 0) return;
+
+            // Reset logic variables
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            timerSeconds = 0;
+            userAnswers = [];
+
+            // Re-shuffle current session questions for a fresh start
+            activeQuestions.sort(() => Math.random() - 0.5);
+
+            // Update Stats & Red/Green Ratio display back to initial clean state
+            updateStatsDisplays();
+            updateAccuracyRatioBar();
+            updateTimerDisplay();
+
+            // Load first question cleanly
+            loadQuestion();
+        }
+
+        // Complete Quiz Summary
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+
+            const total = activeQuestions.length;
+            const correctCount = userAnswers.filter(a => a.correct).length;
+            const incorrectCount = total - correctCount;
+            const accuracy = Math.round((correctCount / total) * 100);
+
+            document.getElementById('finalScore').textContent = `${correctCount} / ${total}`;
+            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+            document.getElementById('finalTime').textContent = document.getElementById('timerDisplay').textContent;
+            document.getElementById('finalStreak').textContent = maxStreak;
+
+            // Render Final Red / Green Summary Bar
+            const greenPercent = Math.round((correctCount / total) * 100);
+            const redPercent = Math.round((incorrectCount / total) * 100);
+
+            document.getElementById('summaryGreenBar').style.width = `${greenPercent}%`;
+            document.getElementById('summaryRedBar').style.width = `${redPercent}%`;
+            document.getElementById('summaryGreenText').textContent = `${correctCount} Correct (${greenPercent}%)`;
+            document.getElementById('summaryRedText').textContent = `${incorrectCount} Incorrect (${redPercent}%)`;
+
+            const summaryText = document.getElementById('resultSummaryText');
+            if (accuracy >= 80) {
+                summaryText.textContent = "Outstanding mastery! You demonstrated fantastic problem-solving skills.";
+            } else if (accuracy >= 60) {
+                summaryText.textContent = "Good progress! Review the step-by-step solutions to strengthen weak areas.";
+            } else {
+                summaryText.textContent = "Keep practicing! Review algebraic steps and retry again.";
+            }
+        }
+
+        // Return to Setup Screen
+        function resetToSetup() {
+            clearInterval(timerInterval);
+            headerResetBtn.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            setupScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
