@@ -137,7 +137,7 @@
                         <option value="10" selected>10 Questions</option>
                         <option value="15">15 Questions</option>
                         <option value="20">20 Questions</option>
-                        <option value="all">All Available Questions</option>
+                        <option value="infinite">Infinite Practice Mode</option>
                     </select>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                 </div>
             </div>
 
-            <!-- Answers Container (MCQ or Fill-in) -->
+            <!-- Answers Container -->
             <div id="answersContainer" class="space-y-2.5">
                 <!-- Dynamically generated options -->
             </div>
@@ -287,7 +287,7 @@
         // Topic mappings per unit
         const topicMap = {
             unit2: [
-                { id: "all", name: "All Unit 2 Topics" },
+                { id: "all_u2", name: "Whole Unit 2 (Days 1-5 Mixed)" },
                 { id: "u2d1", name: "Day 1: Graphing with Transformations" },
                 { id: "u2d2", name: "Day 2: More Graphing with Transformations" },
                 { id: "u2d3", name: "Day 3: Solving Absolute Value Equations" },
@@ -295,7 +295,7 @@
                 { id: "u2d5", name: "Day 5: Absolute Value Inequalities & Word Problems" }
             ],
             unit3: [
-                { id: "all", name: "All Unit 3 Topics" },
+                { id: "all_u3", name: "Whole Unit 3 (Days 1-10 Mixed)" },
                 { id: "u3d1", name: "Day 1: Graphing in Vertex Form" },
                 { id: "u3d2", name: "Day 2: Graphing in Intercept & Standard Form" },
                 { id: "u3d3", name: "Day 3: Factoring" },
@@ -308,7 +308,7 @@
                 { id: "u3d10", name: "Day 10: Quadratic Formula & Discriminant" }
             ],
             unit5: [
-                { id: "all", name: "All Unit 5 Topics" },
+                { id: "all_u5", name: "Whole Unit 5 (Days 1-8 Mixed)" },
                 { id: "u5d1", name: "Day 1: Simplifying Radicals with nth roots" },
                 { id: "u5d2", name: "Day 2: Operations with Radicals" },
                 { id: "u5d3", name: "Day 3: Rational Exponents" },
@@ -316,11 +316,11 @@
                 { id: "u5d5", name: "Day 5: Operations with Radicals & Rational Exponents Practice" },
                 { id: "u5d6", name: "Day 6: Composition of Functions" },
                 { id: "u5d7", name: "Day 7: Inverse Functions" },
-                { id: "u5d8", name: "Day 8: Graphing Square and Cube Root Functions" }
+                { id: "u5d8", name: "Day 8: Graphing Square and Cube Root Function" }
             ]
         };
 
-        // Complete Question Bank (Unit 2, Unit 3, & Unit 5)
+        // Static Handcrafted Base Question Bank (Includes replicated image questions)
         const questionBank = [
             // UNIT 2 DAY 1
             {
@@ -351,107 +351,6 @@
                     "2. The coefficient <code>|a| = 2 > 1</code> causes a <strong>vertical stretch by 2</strong>."
                 ]
             },
-            {
-                id: "u2d1_3", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
-                prompt: "Identify the axis of symmetry for the absolute value function:",
-                equation: "f(x) = -4|x + 5| - 2",
-                options: ["x = -5", "x = 5", "y = -2", "x = -2"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Axis of symmetry for <code>f(x) = a|x - h| + k</code> is <code>x = h</code>.",
-                    "2. Here <code>x + 5 = 0</code> &rarr; <code>x = -5</code>."
-                ]
-            },
-            {
-                id: "u2d1_4", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
-                prompt: "Which direction does the graph of f(x) open?",
-                equation: "f(x) = -3|x - 1| + 4",
-                options: ["Opens Downward", "Opens Upward", "Opens to the Left", "Opens to the Right"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Coefficient <code>a = -3</code> is negative.",
-                    "2. Negative <code>a</code> flips the graph downwards &rarr; <strong>Opens Downward</strong>."
-                ]
-            },
-            {
-                id: "u2d1_5", unit: "unit2", topic: "u2d1", dayLabel: "U2 Day 1", type: "mcq",
-                prompt: "What is the vertical shift of the function f(x) relative to |x|?",
-                equation: "f(x) = |x + 2| - 9",
-                options: ["Down 9 units", "Up 9 units", "Left 2 units", "Right 2 units"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. The constant term <code>k = -9</code> shifts the parent graph <strong>Down 9 units</strong>."
-                ]
-            },
-
-            // UNIT 2 DAY 2
-            {
-                id: "u2d2_1", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
-                prompt: "Determine the domain and range of the function:",
-                equation: "f(x) = -|x - 2| + 5",
-                options: [
-                    "Domain: (-∞, ∞), Range: (-∞, 5]",
-                    "Domain: [2, ∞), Range: (-∞, ∞)",
-                    "Domain: (-∞, ∞), Range: [5, ∞)",
-                    "Domain: (-∞, 2], Range: [5, ∞)"
-                ],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Domain of absolute value functions is always <strong>(-∞, ∞)</strong>.",
-                    "2. Vertex is <code>(2, 5)</code> and opens down &rarr; Range is <strong>(-∞, 5]</strong>."
-                ]
-            },
-            {
-                id: "u2d2_2", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
-                prompt: "Write the equation of an absolute value graph with vertex (-4, 1) opening upward with a vertical stretch of 3:",
-                equation: "f(x) = ?",
-                options: [
-                    "f(x) = 3|x + 4| + 1",
-                    "f(x) = 3|x - 4| + 1",
-                    "f(x) = -3|x + 4| + 1",
-                    "f(x) = 1/3|x + 4| + 1"
-                ],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Plug <code>a = 3</code>, <code>h = -4</code>, and <code>k = 1</code> into <code>f(x) = a|x - h| + k</code>.",
-                    "2. <code>f(x) = 3|x - (-4)| + 1</code> &rarr; <code>f(x) = 3|x + 4| + 1</code>."
-                ]
-            },
-            {
-                id: "u2d2_3", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
-                prompt: "Find the Range of the function:",
-                equation: "f(x) = 2|x + 1| - 6",
-                options: ["[-6, ∞)", "(-∞, -6]", "[-1, ∞)", "(-∞, ∞)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Vertex <code>k = -6</code>. Since <code>a = 2 > 0</code>, the graph opens upward.",
-                    "2. Minimum y-value is <code>-6</code> &rarr; Range: <strong>[-6, ∞)</strong>."
-                ]
-            },
-            {
-                id: "u2d2_4", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
-                prompt: "If parent graph f(x)=|x| is shifted right 5 and down 3, write the new equation:",
-                equation: "g(x) = ?",
-                options: ["g(x) = |x - 5| - 3", "g(x) = |x + 5| - 3", "g(x) = |x - 3| - 5", "g(x) = -|x - 5| + 3"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Shift right 5 &rarr; <code>h = 5</code>.",
-                    "2. Shift down 3 &rarr; <code>k = -3</code>.",
-                    "3. <code>g(x) = |x - 5| - 3</code>."
-                ]
-            },
-            {
-                id: "u2d2_5", unit: "unit2", topic: "u2d2", dayLabel: "U2 Day 2", type: "mcq",
-                prompt: "What is the y-intercept of the function:",
-                equation: "f(x) = 3|x - 2| - 4",
-                options: ["(0, 2)", "(0, -4)", "(0, 6)", "(0, 10)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Set <code>x = 0</code>.",
-                    "2. <code>f(0) = 3|0 - 2| - 4 = 3(2) - 4 = 6 - 4 = 2</code>.",
-                    "3. Y-intercept is <strong>(0, 2)</strong>."
-                ]
-            },
 
             // UNIT 2 DAY 3
             {
@@ -464,174 +363,6 @@
                     "1. Split: <code>2x - 5 = 11</code> or <code>2x - 5 = -11</code>.",
                     "2. Case 1: <code>2x = 16</code> &rarr; <code>x = 8</code>.",
                     "3. Case 2: <code>2x = -6</code> &rarr; <code>x = -3</code>."
-                ]
-            },
-            {
-                id: "u2d3_2", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
-                prompt: "Isolate the absolute value and solve:",
-                equation: "3|x + 2| - 4 = 14",
-                options: ["x = 4 or x = -8", "x = 6 or x = -6", "x = 4 or x = 8", "No Solution"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Add 4: <code>3|x + 2| = 18</code>.",
-                    "2. Divide by 3: <code>|x + 2| = 6</code>.",
-                    "3. Split: <code>x + 2 = 6</code> &rarr; <code>x = 4</code> | <code>x + 2 = -6</code> &rarr; <code>x = -8</code>."
-                ]
-            },
-            {
-                id: "u2d3_3", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
-                prompt: "Solve the equation:",
-                equation: "|4x + 1| = -7",
-                options: ["No Solution", "x = 3/2 or x = -2", "x = -2 only", "x = 0"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Absolute value distance can NEVER equal a negative number.",
-                    "2. <code>|4x + 1| = -7</code> has <strong>No Solution</strong>."
-                ]
-            },
-            {
-                id: "u2d3_4", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "mcq",
-                prompt: "Check for extraneous solutions in the equation:",
-                equation: "|x + 3| = 2x - 1",
-                options: ["x = 4 only (x = -2/3 is extraneous)", "x = -2/3 only", "x = 4 and x = -2/3", "No Solution"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Case 1: <code>x + 3 = 2x - 1</code> &rarr; <code>x = 4</code>. Check: <code>|7| = 7</code> (Valid).",
-                    "2. Case 2: <code>x + 3 = -(2x - 1)</code> &rarr; <code>3x = -2</code> &rarr; <code>x = -2/3</code>. Check: <code>|7/3| = -7/3</code> (Invalid!).",
-                    "3. <strong>x = 4 only</strong>."
-                ]
-            },
-            {
-                id: "u2d3_5", unit: "unit2", topic: "u2d3", dayLabel: "U2 Day 3", type: "fill",
-                prompt: "Solve for the positive value of x:",
-                equation: "|3x - 9| = 18",
-                correctAnswer: "9",
-                solutionSteps: [
-                    "1. Split: <code>3x - 9 = 18</code> &rarr; <code>3x = 27</code> &rarr; <code>x = 9</code>.",
-                    "2. Split: <code>3x - 9 = -18</code> &rarr; <code>3x = -9</code> &rarr; <code>x = -3</code>.",
-                    "3. Positive value is <strong>9</strong>."
-                ]
-            },
-
-            // UNIT 2 DAY 4
-            {
-                id: "u2d4_1", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
-                prompt: "Convert the compound inequality to interval notation: -3 ≤ x < 5",
-                equation: "-3 ≤ x < 5",
-                options: ["[-3, 5)", "(-3, 5]", "[-3, 5]", "(-3, 5)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Square bracket <code>[</code> for inclusive <code>≤</code>.",
-                    "2. Parenthesis <code>)</code> for strict inequality <code><</code>.",
-                    "3. Interval notation: <strong>[-3, 5)</strong>."
-                ]
-            },
-            {
-                id: "u2d4_2", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
-                prompt: "Convert to interval notation: x < -2 OR x ≥ 6",
-                equation: "x < -2 or x ≥ 6",
-                options: ["(-∞, -2) ∪ [6, ∞)", "[-2, 6]", "(-∞, -2] ∪ (6, ∞)", "(-2, 6]"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. <code>x < -2</code> translates to <code>(-∞, -2)</code>.",
-                    "2. <code>x ≥ 6</code> translates to <code>[6, ∞)</code>.",
-                    "3. Joined by union symbol <code>∪</code>: <strong>(-∞, -2) ∪ [6, ∞)</strong>."
-                ]
-            },
-            {
-                id: "u2d4_3", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
-                prompt: "Solve the compound AND inequality: -8 < 2x + 2 ≤ 12",
-                equation: "-8 < 2x + 2 ≤ 12",
-                options: ["-5 < x ≤ 5", "-3 < x ≤ 7", "-5 ≤ x < 5", "-10 < x ≤ 10"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Subtract 2 from all parts: <code>-10 < 2x ≤ 10</code>.",
-                    "2. Divide by 2: <code>-5 < x ≤ 5</code>."
-                ]
-            },
-            {
-                id: "u2d4_4", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
-                prompt: "Express 'all real numbers except x = 4' in interval notation:",
-                equation: "x ≠ 4",
-                options: ["(-∞, 4) ∪ (4, ∞)", "(-∞, 4]", "[4, ∞)", "(-∞, ∞)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Exclude 4 by splitting at 4 with open parentheses: <strong>(-∞, 4) ∪ (4, ∞)</strong>."
-                ]
-            },
-            {
-                id: "u2d4_5", unit: "unit2", topic: "u2d4", dayLabel: "U2 Day 4", type: "mcq",
-                prompt: "Solve the OR compound inequality: 3x - 1 < -10 OR 2x + 5 ≥ 11",
-                equation: "3x - 1 < -10 or 2x + 5 ≥ 11",
-                options: ["x < -3 or x ≥ 3", "x < -3 and x ≥ 3", "-3 < x ≤ 3", "x < 3 or x ≥ -3"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Part 1: <code>3x < -9</code> &rarr; <code>x < -3</code>.",
-                    "2. Part 2: <code>2x ≥ 6</code> &rarr; <code>x ≥ 3</code>.",
-                    "3. Solution: <strong>x < -3 or x ≥ 3</strong>."
-                ]
-            },
-
-            // UNIT 2 DAY 5
-            {
-                id: "u2d5_1", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
-                prompt: "The weight of marshmallows in Lucky Charms per box is 80 grams plus or minus 0.5 grams. Write an absolute value inequality for acceptable weights:",
-                equation: "Target = 80g, Tolerance = 0.5g",
-                options: ["|x - 80| ≤ 0.5", "|x - 0.5| ≤ 80", "|x - 80| ≥ 0.5", "|x - 0.5| ≥ 80"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Formula: <code>|Actual - Target| ≤ Tolerance</code>.",
-                    "2. Target = 80, Tolerance = 0.5.",
-                    "3. Inequality: <strong>|x - 80| ≤ 0.5</strong>."
-                ]
-            },
-            {
-                id: "u2d5_2", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
-                prompt: "Solve the absolute value inequality:",
-                equation: "|3x - 6| < 12",
-                options: ["-2 < x < 6", "x > 6 or x < -2", "-6 < x < 2", "x < 6"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. 'Less Than' means AND conjunction: <code>-12 < 3x - 6 < 12</code>.",
-                    "2. Add 6: <code>-6 < 3x < 18</code>.",
-                    "3. Divide by 3: <strong>-2 < x < 6</strong>."
-                ]
-            },
-            {
-                id: "u2d5_3", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
-                prompt: "Solve the absolute value inequality:",
-                equation: "|2x + 4| ≥ 10",
-                options: ["x ≥ 3 or x ≤ -7", "-7 ≤ x ≤ 3", "x ≥ 3 only", "x ≤ -7 only"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. 'Greater Than or Equal' means OR disjunction.",
-                    "2. <code>2x + 4 ≥ 10</code> &rarr; <code>2x ≥ 6</code> &rarr; <code>x ≥ 3</code>.",
-                    "3. <code>2x + 4 ≤ -10</code> &rarr; <code>2x ≤ -14</code> &rarr; <code>x ≤ -7</code>.",
-                    "4. Solution: <strong>x ≥ 3 or x ≤ -7</strong>."
-                ]
-            },
-            {
-                id: "u2d5_4", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
-                prompt: "A smartphone battery must weigh 45g with a tolerance of 1.2g. Write the inequality for UNACCEPTABLE weights:",
-                equation: "Target = 45g, Tolerance = 1.2g (Unacceptable)",
-                options: ["|x - 45| > 1.2", "|x - 45| ≤ 1.2", "|x - 1.2| > 45", "|x + 45| > 1.2"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Unacceptable weights fall outside the tolerance threshold.",
-                    "2. Formula: <code>|Actual - Target| > Tolerance</code>.",
-                    "3. Inequality: <strong>|x - 45| > 1.2</strong>."
-                ]
-            },
-            {
-                id: "u2d5_5", unit: "unit2", topic: "u2d5", dayLabel: "U2 Day 5", type: "mcq",
-                prompt: "Solve the inequality:",
-                equation: "|x - 7| + 5 < 2",
-                options: ["No Solution", "All Real Numbers", "x < 4", "-4 < x < 10"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Subtract 5: <code>|x - 7| < -3</code>.",
-                    "2. Absolute value distance can NEVER be less than a negative number.",
-                    "3. Solution: <strong>No Solution</strong>."
                 ]
             },
 
@@ -648,112 +379,6 @@
                     "3. <code>h = 4</code> and <code>k = -5</code> &rarr; Vertex is <strong>(4, -5)</strong>."
                 ]
             },
-            {
-                id: "u3d1_2", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
-                prompt: "Does the parabola have a minimum or maximum value?",
-                equation: "f(x) = -3(x + 1)² + 8",
-                options: ["Maximum at y = 8", "Minimum at y = 8", "Maximum at y = -1", "Minimum at y = -1"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Coefficient <code>a = -3</code> is negative, so parabola opens DOWNWARD.",
-                    "2. A downward-opening parabola has a <strong>Maximum</strong> at its vertex y-value (<code>y = 8</code>)."
-                ]
-            },
-            {
-                id: "u3d1_3", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
-                prompt: "Identify the axis of symmetry for f(x) = 1/2(x + 6)² - 2:",
-                equation: "f(x) = 1/2(x + 6)² - 2",
-                options: ["x = -6", "x = 6", "x = -2", "y = -6"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Axis of symmetry is <code>x = h</code>.",
-                    "2. <code>x + 6 = 0</code> &rarr; <code>x = -6</code>."
-                ]
-            },
-            {
-                id: "u3d1_4", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
-                prompt: "Determine the range of f(x) = (x - 3)² + 4:",
-                equation: "f(x) = (x - 3)² + 4",
-                options: ["[4, ∞)", "(-∞, 4]", "[3, ∞)", "(-∞, ∞)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Vertex is <code>(3, 4)</code> and <code>a = 1 > 0</code> (opens upward).",
-                    "2. Range is <strong>[4, ∞)</strong>."
-                ]
-            },
-            {
-                id: "u3d1_5", unit: "unit3", topic: "u3d1", dayLabel: "U3 Day 1", type: "mcq",
-                prompt: "Transform parent f(x)=x² by shifting left 2, reflecting over x-axis, and shifting up 5:",
-                equation: "g(x) = ?",
-                options: ["g(x) = -(x + 2)² + 5", "g(x) = -(x - 2)² + 5", "g(x) = (x + 2)² - 5", "g(x) = -x² - 2 + 5"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Shift left 2 &rarr; <code>(x + 2)²</code>.",
-                    "2. Reflect across x-axis &rarr; negative sign in front.",
-                    "3. Shift up 5 &rarr; <code>+ 5</code>.",
-                    "4. Equation: <strong>g(x) = -(x + 2)² + 5</strong>."
-                ]
-            },
-
-            // UNIT 3 DAY 2
-            {
-                id: "u3d2_1", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
-                prompt: "Find the x-intercepts of the quadratic function in intercept form:",
-                equation: "f(x) = (x - 5)(x + 2)",
-                options: ["(5, 0) and (-2, 0)", "(-5, 0) and (2, 0)", "(5, 0) and (2, 0)", "(0, 5) and (0, -2)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Set <code>f(x) = 0</code> &rarr; <code>(x - 5)(x + 2) = 0</code>.",
-                    "2. <code>x = 5</code> or <code>x = -2</code>.",
-                    "3. X-intercepts: <strong>(5, 0) and (-2, 0)</strong>."
-                ]
-            },
-            {
-                id: "u3d2_2", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
-                prompt: "Find the x-coordinate of the vertex for standard form quadratic f(x) = x² - 6x + 8:",
-                equation: "f(x) = x² - 6x + 8",
-                options: ["x = 3", "x = -3", "x = 6", "x = 4"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Use formula <code>x = -b / (2a)</code>.",
-                    "2. Here <code>a = 1, b = -6</code> &rarr; <code>x = -(-6) / (2*1) = 6 / 2 = 3</code>."
-                ]
-            },
-            {
-                id: "u3d2_3", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
-                prompt: "Find the y-intercept of standard form quadratic:",
-                equation: "f(x) = 2x² - 4x - 7",
-                options: ["(0, -7)", "(0, 2)", "(0, -4)", "(0, 7)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Plug in <code>x = 0</code>.",
-                    "2. <code>f(0) = 2(0)² - 4(0) - 7 = -7</code>.",
-                    "3. Y-intercept: <strong>(0, -7)</strong>."
-                ]
-            },
-            {
-                id: "u3d2_4", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
-                prompt: "Convert intercept form f(x) = 2(x - 1)(x + 3) to standard form:",
-                equation: "f(x) = 2(x - 1)(x + 3)",
-                options: ["f(x) = 2x² + 4x - 6", "f(x) = 2x² + 2x - 3", "f(x) = 2x² - 4x - 6", "f(x) = 2x² + 6x - 6"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Expand brackets: <code>(x - 1)(x + 3) = x² + 2x - 3</code>.",
-                    "2. Multiply by 2: <code>2(x² + 2x - 3) = 2x² + 4x - 6</code>."
-                ]
-            },
-            {
-                id: "u3d2_5", unit: "unit3", topic: "u3d2", dayLabel: "U3 Day 2", type: "mcq",
-                prompt: "Find the vertex of f(x) = x² + 4x + 1:",
-                equation: "f(x) = x² + 4x + 1",
-                options: ["(-2, -3)", "(2, 13)", "(-2, 1)", "(2, -3)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. <code>x = -b / (2a) = -4 / 2 = -2</code>.",
-                    "2. Plug in <code>x = -2</code>: <code>f(-2) = (-2)² + 4(-2) + 1 = 4 - 8 + 1 = -3</code>.",
-                    "3. Vertex: <strong>(-2, -3)</strong>."
-                ]
-            },
 
             // UNIT 3 DAY 3
             {
@@ -768,585 +393,313 @@
                     "3. Factored form: <strong>(x - 3)(x - 4)</strong>."
                 ]
             },
-            {
-                id: "u3d3_2", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
-                prompt: "Factor the difference of squares:",
-                equation: "4x² - 25",
-                options: ["(2x - 5)(2x + 5)", "(2x - 5)²", "(4x - 5)(x + 5)", "(2x + 25)(2x - 1)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Difference of squares formula: <code>a² - b² = (a - b)(a + b)</code>.",
-                    "2. <code>a = 2x, b = 5</code>.",
-                    "3. Factored form: <strong>(2x - 5)(2x + 5)</strong>."
-                ]
-            },
-            {
-                id: "u3d3_3", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
-                prompt: "Factor by grouping / AC method:",
-                equation: "2x² + 7x + 3",
-                options: ["(2x + 1)(x + 3)", "(2x + 3)(x + 1)", "(2x + 6)(x + 1)", "(x + 7)(2x + 3)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. AC = 2 * 3 = 6. Two numbers that multiply to 6 and add to 7 are 6 and 1.",
-                    "2. Rewrite: <code>2x² + 6x + 1x + 3</code>.",
-                    "3. Group: <code>2x(x + 3) + 1(x + 3) = (2x + 1)(x + 3)</code>."
-                ]
-            },
-            {
-                id: "u3d3_4", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
-                prompt: "Factor out the GCF first:",
-                equation: "3x² - 12x - 36",
-                options: ["3(x - 6)(x + 2)", "3(x - 3)(x + 4)", "(3x - 18)(x + 2)", "3(x - 2)(x + 6)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Factor out GCF of 3: <code>3(x² - 4x - 12)</code>.",
-                    "2. Factor trinomial inside: <code>(x - 6)(x + 2)</code>.",
-                    "3. Final answer: <strong>3(x - 6)(x + 2)</strong>."
-                ]
-            },
-            {
-                id: "u3d3_5", unit: "unit3", topic: "u3d3", dayLabel: "U3 Day 3", type: "mcq",
-                prompt: "Factor completely:",
-                equation: "x² - 16",
-                options: ["(x - 4)(x + 4)", "(x - 4)²", "(x + 4)²", "(x - 8)(x + 2)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Difference of squares: <code>a² - b² = (a - b)(a + b)</code>.",
-                    "2. <code>(x - 4)(x + 4)</code>."
-                ]
-            },
 
-            // UNIT 3 DAY 4
-            {
-                id: "u3d4_1", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
-                prompt: "Solve the equation by factoring:",
-                equation: "x² - 5x - 14 = 0",
-                options: ["x = 7 or x = -2", "x = -7 or x = 2", "x = 14 or x = -1", "x = 7 or x = 2"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Factor: <code>(x - 7)(x + 2) = 0</code>.",
-                    "2. Apply Zero Product Property: <code>x - 7 = 0</code> or <code>x + 2 = 0</code>.",
-                    "3. <strong>x = 7 or x = -2</strong>."
-                ]
-            },
-            {
-                id: "u3d4_2", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
-                prompt: "Solve by factoring:",
-                equation: "3x² - 12x = 0",
-                options: ["x = 0 or x = 4", "x = 4 only", "x = 0 or x = -4", "x = 3 or x = 4"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Factor GCF: <code>3x(x - 4) = 0</code>.",
-                    "2. Set factors to 0: <code>3x = 0</code> &rarr; <code>x = 0</code> | <code>x - 4 = 0</code> &rarr; <code>x = 4</code>."
-                ]
-            },
-            {
-                id: "u3d4_3", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
-                prompt: "Solve by factoring:",
-                equation: "x² - 9x + 20 = 0",
-                options: ["x = 4 or x = 5", "x = -4 or x = -5", "x = 20 or x = 1", "x = 10 or x = 2"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Factor: <code>(x - 4)(x - 5) = 0</code>.",
-                    "2. <code>x = 4</code> or <code>x = 5</code>."
-                ]
-            },
-            {
-                id: "u3d4_4", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "fill",
-                prompt: "Find the positive solution to x² - 64 = 0:",
-                equation: "x² - 64 = 0",
-                correctAnswer: "8",
-                solutionSteps: [
-                    "1. Factor: <code>(x - 8)(x + 8) = 0</code>.",
-                    "2. Solutions: <code>x = 8</code> or <code>x = -8</code>.",
-                    "3. Positive solution requested: <strong>8</strong>."
-                ]
-            },
-            {
-                id: "u3d4_5", unit: "unit3", topic: "u3d4", dayLabel: "U3 Day 4", type: "mcq",
-                prompt: "Solve 2x² + 5x - 3 = 0 by factoring:",
-                equation: "2x² + 5x - 3 = 0",
-                options: ["x = 1/2 or x = -3", "x = -1/2 or x = 3", "x = 2 or x = -3", "x = 3 or x = -1/2"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Factor: <code>(2x - 1)(x + 3) = 0</code>.",
-                    "2. <code>2x - 1 = 0</code> &rarr; <code>x = 1/2</code>.",
-                    "3. <code>x + 3 = 0</code> &rarr; <code>x = -3</code>."
-                ]
-            },
-
-            // UNIT 3 DAY 5
-            {
-                id: "u3d5_1", unit: "unit3", topic: "u3d5", dayLabel: "U3 Day 5", type: "mcq",
-                prompt: "Solve the quadratic inequality:",
-                equation: "x² - 4x - 5 < 0",
-                options: ["-1 < x < 5", "x < -1 or x > 5", "1 < x < 5", "-5 < x < 1"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Find critical boundary points by factoring: <code>(x - 5)(x + 1) = 0</code> &rarr; <code>x = 5, -1</code>.",
-                    "2. Parabola opens UP. Below zero (negative) between the roots.",
-                    "3. Solution: <strong>-1 < x < 5</strong>."
-                ]
-            },
-            {
-                id: "u3d5_2", unit: "unit3", topic: "u3d5", dayLabel: "U3 Day 5", type: "mcq",
-                prompt: "Solve the quadratic inequality:",
-                equation: "x² - 9 ≥ 0",
-                options: ["x ≤ -3 or x ≥ 3", "-3 ≤ x ≤ 3", "x ≥ 3 only", "x ≤ -3 only"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Roots at <code>x = 3</code> and <code>x = -3</code>.",
-                    "2. Since expression is <code>≥ 0</code>, solution lies on outer intervals.",
-                    "3. Solution: <strong>x ≤ -3 or x ≥ 3</strong>."
-                ]
-            },
-            {
-                id: "u3d5_3", unit: "unit3", topic: "u3d5", dayLabel: "U3 Day 5", type: "mcq",
-                prompt: "Solve the inequality: x² + 2x - 8 > 0",
-                equation: "x² + 2x - 8 > 0",
-                options: ["x < -4 or x > 2", "-4 < x < 2", "x < -2 or x > 4", "-2 < x < 4"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Factor: <code>(x + 4)(x - 2) > 0</code>.",
-                    "2. Critical points at <code>x = -4</code> and <code>x = 2</code>.",
-                    "3. Greater than zero &rarr; Outer intervals: <strong>x < -4 or x > 2</strong>."
-                ]
-            },
-
-            // UNIT 3 DAY 6
-            {
-                id: "u3d6_1", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
-                prompt: "Simplify the complex number expression:",
-                equation: "(4 + 3i) + (2 - 5i)",
-                options: ["6 - 2i", "6 + 2i", "2 - 2i", "6 - 8i"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Combine real parts: <code>4 + 2 = 6</code>.",
-                    "2. Combine imaginary parts: <code>3i - 5i = -2i</code>.",
-                    "3. Result: <strong>6 - 2i</strong>."
-                ]
-            },
-            {
-                id: "u3d6_2", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
-                prompt: "Multiply the complex numbers (Remember i² = -1):",
-                equation: "(2 + 4i)(3 - i)",
-                options: ["10 + 10i", "2 + 10i", "10 + 14i", "6 - 4i"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. FOIL: <code>2(3) + 2(-i) + 4i(3) + 4i(-i) = 6 - 2i + 12i - 4i²</code>.",
-                    "2. Substitute <code>i² = -1</code> &rarr; <code>6 + 10i - 4(-1) = 6 + 10i + 4 = 10 + 10i</code>."
-                ]
-            },
-            {
-                id: "u3d6_3", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
-                prompt: "Simplify power of i: i^27",
-                equation: "i²⁷",
-                options: ["-i", "i", "1", "-1"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Divide exponent 27 by 4 &rarr; remainder 3.",
-                    "2. <code>i²⁷ = i³ = -i</code>."
-                ]
-            },
-            {
-                id: "u3d6_4", unit: "unit3", topic: "u3d6", dayLabel: "U3 Day 6", type: "mcq",
-                prompt: "Find the complex conjugate of 5 - 7i:",
-                equation: "z = 5 - 7i",
-                options: ["5 + 7i", "-5 + 7i", "-5 - 7i", "7 - 5i"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Conjugate flips the sign of imaginary part.",
-                    "2. Conjugate of <code>5 - 7i</code> is <strong>5 + 7i</strong>."
-                ]
-            },
-
-            // UNIT 3 DAY 7
-            {
-                id: "u3d7_1", unit: "unit3", topic: "u3d7", dayLabel: "U3 Day 7", type: "mcq",
-                prompt: "Solve using the Square Root Property:",
-                equation: "x² - 49 = 0",
-                options: ["x = ±7", "x = 7 only", "x = ±49", "x = ±14"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Isolate square: <code>x² = 49</code>.",
-                    "2. Take square root: <code>x = ±√49 = ±7</code>."
-                ]
-            },
-            {
-                id: "u3d7_2", unit: "unit3", topic: "u3d7", dayLabel: "U3 Day 7", type: "mcq",
-                prompt: "Solve using the Square Root Property:",
-                equation: "(x - 3)² = 16",
-                options: ["x = 7 or x = -1", "x = 7 or x = 1", "x = 19 or x = -13", "x = ±4"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Take square root: <code>x - 3 = ±4</code>.",
-                    "2. Case 1: <code>x - 3 = 4</code> &rarr; <code>x = 7</code>.",
-                    "3. Case 2: <code>x - 3 = -4</code> &rarr; <code>x = -1</code>."
-                ]
-            },
-            {
-                id: "u3d7_3", unit: "unit3", topic: "u3d7", dayLabel: "U3 Day 7", type: "mcq",
-                prompt: "Solve for imaginary roots using Square Root Property:",
-                equation: "2x² + 32 = 0",
-                options: ["x = ±4i", "x = ±4", "x = ±16i", "x = ±2i√2"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Isolate x²: <code>2x² = -32</code> &rarr; <code>x² = -16</code>.",
-                    "2. Take square root: <code>x = ±√(-16) = ±4i</code>."
-                ]
-            },
-
-            // UNIT 3 DAY 8
-            {
-                id: "u3d8_1", unit: "unit3", topic: "u3d8", dayLabel: "U3 Day 8", type: "mcq",
-                prompt: "What value completes the square for x² - 10x + c?",
-                equation: "x² - 10x + c",
-                options: ["25", "100", "-25", "5"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Formula: <code>c = (b / 2)²</code>.",
-                    "2. Here <code>b = -10</code> &rarr; <code>(-10 / 2)² = (-5)² = 25</code>."
-                ]
-            },
-            {
-                id: "u3d8_2", unit: "unit3", topic: "u3d8", dayLabel: "U3 Day 8", type: "mcq",
-                prompt: "Solve by completing the square:",
-                equation: "x² + 6x - 7 = 0",
-                options: ["x = 1 or x = -7", "x = -1 or x = 7", "x = 3 or x = -3", "x = 4 or x = -10"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Move constant: <code>x² + 6x = 7</code>.",
-                    "2. Add <code>(6/2)² = 9</code> to both sides: <code>x² + 6x + 9 = 16</code>.",
-                    "3. Factor: <code>(x + 3)² = 16</code> &rarr; <code>x + 3 = ±4</code>.",
-                    "4. Solutions: <strong>x = 1 or x = -7</strong>."
-                ]
-            },
-
-            // UNIT 3 DAY 9
-            {
-                id: "u3d9_1", unit: "unit3", topic: "u3d9", dayLabel: "U3 Day 9", type: "mcq",
-                prompt: "Solve the non-linear system of equations:",
-                equation: "y = x² - 4 and y = 2x - 1",
-                options: ["(3, 5) and (-1, -3)", "(3, 2) and (-1, 0)", "(4, 7) and (-2, -5)", "No Solution"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Set equations equal: <code>x² - 4 = 2x - 1</code>.",
-                    "2. Rearrange: <code>x² - 2x - 3 = 0</code>.",
-                    "3. Factor: <code>(x - 3)(x + 1) = 0</code> &rarr; <code>x = 3</code> or <code>x = -1</code>.",
-                    "4. Find y-values: <code>x = 3 &rarr; y = 5</code> | <code>x = -1 &rarr; y = -3</code>."
-                ]
-            },
-
-            // UNIT 3 DAY 10
-            {
-                id: "u3d10_1", unit: "unit3", topic: "u3d10", dayLabel: "U3 Day 10", type: "mcq",
-                prompt: "Find the discriminant and state the number/type of solutions:",
-                equation: "2x² - 4x + 5 = 0",
-                options: [
-                    "Discriminant = -24 (2 Complex/Imaginary Solutions)",
-                    "Discriminant = 56 (2 Real Irrational Solutions)",
-                    "Discriminant = 0 (1 Real Solution)",
-                    "Discriminant = 16 (2 Real Rational Solutions)"
-                ],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Discriminant formula: <code>Δ = b² - 4ac</code>.",
-                    "2. <code>a = 2, b = -4, c = 5</code>.",
-                    "3. <code>Δ = (-4)² - 4(2)(5) = 16 - 40 = -24</code>.",
-                    "4. Since <code>Δ < 0</code>, there are <strong>2 Complex / Imaginary Solutions</strong>."
-                ]
-            },
-            {
-                id: "u3d10_2", unit: "unit3", topic: "u3d10", dayLabel: "U3 Day 10", type: "mcq",
-                prompt: "Solve using the Quadratic Formula: x² - 6x + 8 = 0",
-                equation: "x² - 6x + 8 = 0",
-                options: ["x = 4 or x = 2", "x = -4 or x = -2", "x = 6 or x = 8", "x = 3 or x = 1"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Quadratic Formula: <code>x = [-b ± √(b² - 4ac)] / (2a)</code>.",
-                    "2. <code>a = 1, b = -6, c = 8</code> &rarr; <code>x = [6 ± √(36 - 32)] / 2 = [6 ± 2] / 2</code>.",
-                    "3. <code>x = 8/2 = 4</code> or <code>x = 4/2 = 2</code>."
-                ]
-            },
-
-            // ================= UNIT 5 TOPICS =================
-            // UNIT 5 DAY 1: Simplifying Radicals with nth roots
+            // ==========================================
+            // UNIT 5 DAY 1 (REPLICATED IMAGE #5 & #6)
+            // ==========================================
             {
                 id: "u5d1_1", unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
-                prompt: "Simplify the radical expression completely:",
-                equation: "√(72x⁴y⁷)",
-                options: ["6x²y³ √(2y)", "12x²y³ √(2y)", "6xy³ √(2x²y)", "36x²y³ √(2y)"],
+                prompt: "Simplify the radical expression completely, assuming x > 0, y > 0:",
+                equation: "⁴√( (16x⁷ y¹¹) / (81x⁻¹³ y⁻⁵) )",
+                options: ["(2/3)x⁵ y⁴", "(4/9)x⁵ y⁴", "(2/3)x font y font", "(2/3)x⁻⁵ y⁻⁴"],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Factor numerical part: <code>72 = 36 × 2</code> &rarr; <code>√72 = 6√2</code>.",
-                    "2. Variable x: <code>√(x⁴) = x²</code>.",
-                    "3. Variable y: <code>√(y⁷) = √(y⁶ · y) = y³ √y</code>.",
-                    "4. Combine terms: <strong>6x²y³ √(2y)</strong>."
+                    "1. Simplify quotient inside radical: <code>x⁷ / x⁻¹³ = x^(7 - (-13)) = x²⁰</code> and <code>y¹¹ / y⁻⁵ = y^(11 - (-5)) = y¹⁶</code>.",
+                    "2. Expression becomes: <code>⁴√( (16 x²⁰ y¹⁶) / 81 )</code>.",
+                    "3. Take 4th root: <code>⁴√16 / ⁴√81 = 2 / 3</code>.",
+                    "4. Roots of variables: <code>⁴√(x²⁰) = x⁵</code> and <code>⁴√(y¹⁶) = y⁴</code>.",
+                    "5. Simplified answer: <strong>(2/3)x⁵y⁴</strong>."
                 ]
             },
             {
                 id: "u5d1_2", unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
-                prompt: "Simplify the cube root expression:",
-                equation: "∛(54a⁶b⁸)",
-                options: ["3a²b² ∛(2b²)", "6a²b² ∛(b²)", "3a³b⁴ ∛(2)", "9a²b² ∛(2b)"],
+                prompt: "Convert the radical expression into exponential form and simplify completely:",
+                equation: "⁶√( 729 x¹⁷ y¹³ )",
+                options: ["3 x^(17/6) y^(13/6)", "729 x^(17/6) y^(13/6)", "3 x^(6/17) y^(6/13)", "9 x^(17/6) y^(13/6)"],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Factor perfect cube: <code>54 = 27 × 2</code> &rarr; <code>∛27 = 3</code>.",
-                    "2. Variable a: <code>∛(a⁶) = a²</code>.",
-                    "3. Variable b: <code>∛(b⁸) = ∛(b⁶ · b²) = b² ∛(b²)</code>.",
-                    "4. Result: <strong>3a²b² ∛(2b²)</strong>."
+                    "1. Evaluate 6th root of constant: <code>⁶√729 = 3</code> (since 3⁶ = 729).",
+                    "2. Convert variable radicals to fractional exponents: <code>x^(17/6)</code> and <code>y^(13/6)</code>.",
+                    "3. Combine terms: <strong>3 x^(17/6) y^(13/6)</strong>."
                 ]
             },
             {
                 id: "u5d1_3", unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
-                prompt: "Simplify the 4th root expression:",
-                equation: "∜(81x¹²y⁵)",
-                options: ["3x³y ∜(y)", "9x³y ∜(y)", "3x⁶y² ∜(y)", "27x³y ∜(y)"],
+                prompt: "Simplify the radical quotient completely, assuming x > 0, y > 0:",
+                equation: "³√( (27x⁸ y¹³) / (64x⁻¹⁰ y⁻²) )",
+                options: ["(3/4)x⁶ y⁵", "(9/16)x⁶ y⁵", "(3/4)x⁴ y²", "(3/4)x^(-6) y^(-5)"],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Numerical 4th root: <code>∜81 = 3</code> (since 3⁴ = 81).",
-                    "2. Exponents: <code>12 ÷ 4 = 3</code> &rarr; <code>x³</code>; <code>5 ÷ 4 = 1 R 1</code> &rarr; <code>y ∜y</code>.",
-                    "3. Combined: <strong>3x³y ∜(y)</strong>."
+                    "1. Simplify quotient inside cube root: <code>x⁸ / x⁻¹⁰ = x¹⁸</code> and <code>y¹³ / y⁻² = y¹⁵</code>.",
+                    "2. Take cube root of constant: <code>³√27 / ³√64 = 3 / 4</code>.",
+                    "3. Take cube root of variables: <code>³√(x¹⁸) = x⁶</code> and <code>³√(y¹⁵) = y⁵</code>.",
+                    "4. Result: <strong>(3/4)x⁶y⁵</strong>."
                 ]
             },
 
-            // UNIT 5 DAY 2: Operations with Radicals
+            // ==========================================
+            // UNIT 5 DAY 2 (REPLICATED IMAGE #1)
+            // ==========================================
             {
                 id: "u5d2_1", unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
-                prompt: "Add or subtract the like radicals after simplifying:",
-                equation: "3√50 - 2√18 + √8",
-                options: ["11√2", "9√2", "13√2", "5√2"],
+                prompt: "Simplify each term and subtract completely:",
+                equation: "(7y / 3x) ³√(108 x¹⁰ y⁸)  -  y² ³√(32 x⁷ y⁵)",
+                options: [
+                    "5x² y³ ³√(4x y²)",
+                    "7x² y³ ³√(4x y²) - 2x² y³ ³√(4x y²)",
+                    "3x² y³ ³√(4x y²)",
+                    "5x y² ³√(4x y²)"
+                ],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Simplify each radical: <code>3√(25×2) = 15√2</code>.",
-                    "2. <code>2√(9×2) = 6√2</code>.",
-                    "3. <code>√(4×2) = 2√2</code>.",
-                    "4. Combine like terms: <code>15√2 - 6√2 + 2√2 = 11√2</code>."
+                    "1. Simplify 1st term: <code>³√(108 x¹⁰ y⁸) = 3 x³ y² ³√(4 x y²)</code>.",
+                    "   Multiply front factor: <code>(7y / 3x) · [3 x³ y² ³√(4 x y²)] = 7 x² y³ ³√(4 x y²)</code>.",
+                    "2. Simplify 2nd term: <code>³√(32 x⁷ y⁵) = 2 x² y ³√(4 x y²)</code>.",
+                    "   Multiply front factor: <code>y² · [2 x² y ³√(4 x y²)] = 2 x² y³ ³√(4 x y²)</code>.",
+                    "3. Subtract like radical terms: <code>(7 - 2) x² y³ ³√(4 x y²) = 5 x² y³ ³√(4 x y²)</code>."
                 ]
             },
             {
                 id: "u5d2_2", unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
-                prompt: "Multiply and simplify the expression:",
-                equation: "(2√3 + 4)(√3 - 1)",
-                options: ["2 + 2√3", "10 + 2√3", "2 - 2√3", "6 + 2√3"],
+                prompt: "Simplify and combine like radical terms completely:",
+                equation: "(5y / 2x) ³√(250 x⁷ y⁵) + y² ³√(16 x⁴ y²)",
+                options: [
+                    "14.5 x y² ³√(2x y²)",
+                    "12.5 x y² ³√(2x y²)",
+                    "10.5 x y² ³√(2x y²)",
+                    "7 x y² ³√(2x y²)"
+                ],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. FOIL: <code>(2√3)(√3) + (2√3)(-1) + 4(√3) + 4(-1)</code>.",
-                    "2. <code>2(3) - 2√3 + 4√3 - 4 = 6 + 2√3 - 4</code>.",
-                    "3. Combine real numbers: <strong>2 + 2√3</strong>."
-                ]
-            },
-            {
-                id: "u5d2_3", unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
-                prompt: "Rationalize the denominator:",
-                equation: "6 / (3 - √3)",
-                options: ["3 + √3", "3 - √3", "2 + √3", "6 + 2√3"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Multiply top and bottom by conjugate <code>(3 + √3)</code>.",
-                    "2. Numerator: <code>6(3 + √3) = 18 + 6√3</code>.",
-                    "3. Denominator: <code>3² - (√3)² = 9 - 3 = 6</code>.",
-                    "4. Divide each term by 6: <code>(18 + 6√3) / 6 = 3 + √3</code>."
+                    "1. Term 1: <code>³√(250 x⁷ y⁵) = 5 x² y ³√(2 x y²)</code>.",
+                    "   Front product: <code>(5y / 2x) · 5 x² y ³√(2 x y²) = (25/2) x y² ³√(2 x y²) = 12.5 x y² ³√(2 x y²)</code>.",
+                    "2. Term 2: <code>y² · ³√(16 x⁴ y²) = y² · 2 x ³√(2 x y²) = 2 x y² ³√(2 x y²)</code>.",
+                    "3. Add terms: <code>(12.5 + 2) x y² ³√(2 x y²) = 14.5 x y² ³√(2 x y²)</code>."
                 ]
             },
 
-            // UNIT 5 DAY 3: Rational Exponents
+            // UNIT 5 DAY 3
             {
                 id: "u5d3_1", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "mcq",
-                prompt: "Convert the radical expression to rational exponent form:",
-                equation: "∜(x³)",
-                options: ["x^(3/4)", "x^(4/3)", "x^(-1/4)", "x^7"],
+                prompt: "Simplify the expression using the quotient rule for rational exponents:",
+                equation: "(q^(3/5)) / (q^(2/5))",
+                options: ["q^(1/5)", "q^(5/5) = q", "q^(6/25)", "q^(-1/5)"],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Fractional exponent rule: <code>ⁿ√(xᵐ) = x^(m/n)</code>.",
-                    "2. Power is 3, Root index is 4 &rarr; <strong>x^(3/4)</strong>."
+                    "1. Quotient Rule: Subtract exponents when dividing same bases: <code>a^m / a^n = a^(m - n)</code>.",
+                    "2. <code>3/5 - 2/5 = 1/5</code>.",
+                    "3. Result: <strong>q^(1/5)</strong>."
                 ]
             },
             {
                 id: "u5d3_2", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "mcq",
-                prompt: "Evaluate the numeric expression without a calculator:",
-                equation: "27^(2/3)",
-                options: ["9", "3", "18", "81"],
+                prompt: "Simplify the expression with a negative exponent in the denominator:",
+                equation: "(t^(2/3)) / (t^(-3/4))",
+                options: ["t^(17/12)", "t^(-1/12)", "t^(1/12)", "t^(5/12)"],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Rewrite as <code>(∛27)²</code>.",
-                    "2. <code>∛27 = 3</code>.",
-                    "3. <code>3² = 9</code>."
+                    "1. Subtract exponents: <code>2/3 - (-3/4) = 2/3 + 3/4</code>.",
+                    "2. Find common denominator (12): <code>8/12 + 9/12 = 17/12</code>.",
+                    "3. Result: <strong>t^(17/12)</strong>."
                 ]
             },
             {
-                id: "u5d3_3", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "fill",
-                prompt: "Evaluate the negative rational exponent expression:",
-                equation: "16^(-3/4)",
-                correctAnswer: "1/8",
+                id: "u5d3_3", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "mcq",
+                prompt: "Convert each term to a rational exponent, combine, and write as a simplified radical expression:",
+                equation: "√2³ · ∛2²",
+                options: ["4∛2 (or 2^(13/6))", "2^(5/6)", "8√2", "∜2^5"],
+                correctIndex: 0,
                 solutionSteps: [
-                    "1. Negative exponent: <code>1 / (16^(3/4))</code>.",
-                    "2. Evaluate <code>16^(1/4) = ∜16 = 2</code>.",
-                    "3. Cube result: <code>2³ = 8</code>.",
-                    "4. Reciprocal value: <strong>1/8</strong>."
+                    "1. Convert terms to fractional exponents: <code>2^(3/2) · 2^(2/3)</code>.",
+                    "2. Add exponents: <code>3/2 + 2/3 = 9/6 + 4/6 = 13/6</code> &rarr; <code>2^(13/6)</code>.",
+                    "3. Convert to mixed radical form: <code>2^(13/6) = 2^(2 + 1/6) = 2² · 2^(1/6) = 4∛2</code>."
                 ]
             },
 
-            // UNIT 5 DAY 4: Solving Radical Equations
+            // UNIT 5 DAY 4
             {
                 id: "u5d4_1", unit: "unit5", topic: "u5d4", dayLabel: "U5 Day 4", type: "mcq",
-                prompt: "Solve the radical equation for x:",
+                prompt: "Solve the square root equation for x:",
                 equation: "√(2x + 3) = 5",
                 options: ["x = 11", "x = 14", "x = 22", "x = 4"],
                 correctIndex: 0,
                 solutionSteps: [
                     "1. Square both sides: <code>2x + 3 = 25</code>.",
                     "2. Subtract 3: <code>2x = 22</code>.",
-                    "3. Divide by 2: <strong>x = 11</strong>."
-                ]
-            },
-            {
-                id: "u5d4_2", unit: "unit5", topic: "u5d4", dayLabel: "U5 Day 4", type: "mcq",
-                prompt: "Solve and identify any extraneous solutions:",
-                equation: "√(x + 6) = x",
-                options: ["x = 3 only (x = -2 is extraneous)", "x = -2 only", "x = 3 and x = -2", "No Solution"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Square both sides: <code>x + 6 = x²</code> &rarr; <code>x² - x - 6 = 0</code>.",
-                    "2. Factor: <code>(x - 3)(x + 2) = 0</code> &rarr; <code>x = 3</code> or <code>x = -2</code>.",
-                    "3. Check <code>x = 3</code>: <code>√9 = 3</code> (Valid!).",
-                    "4. Check <code>x = -2</code>: <code>√4 = -2</code> (False! Square root cannot be negative).",
-                    "5. <strong>x = 3 only</strong>."
-                ]
-            },
-            {
-                id: "u5d4_3", unit: "unit5", topic: "u5d4", dayLabel: "U5 Day 4", type: "mcq",
-                prompt: "Isolate the radical and solve:",
-                equation: "2∛(x - 1) + 4 = 10",
-                options: ["x = 28", "x = 26", "x = 10", "x = 9"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Subtract 4: <code>2∛(x - 1) = 6</code>.",
-                    "2. Divide by 2: <code>∛(x - 1) = 3</code>.",
-                    "3. Cube both sides: <code>x - 1 = 27</code>.",
-                    "4. Add 1: <strong>x = 28</strong>."
+                    "3. Divide by 2: <code>x = 11</code>."
                 ]
             },
 
-            // UNIT 5 DAY 5: Operations with Radicals & Rational Exponents Practice
-            {
-                id: "u5d5_1", unit: "unit5", topic: "u5d5", dayLabel: "U5 Day 5", type: "mcq",
-                prompt: "Simplify using exponent properties:",
-                equation: "(x^(1/2) · x^(1/3))⁶",
-                options: ["x⁵", "x⁶", "x", "x^(1/36)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Add inner exponents: <code>1/2 + 1/3 = 3/6 + 2/6 = 5/6</code>.",
-                    "2. Raise to power of 6: <code>(x^(5/6))⁶ = x^(5/6 * 6) = x⁵</code>."
-                ]
-            },
-            {
-                id: "u5d5_2", unit: "unit5", topic: "u5d5", dayLabel: "U5 Day 5", type: "mcq",
-                prompt: "Simplify the quotient of radicals:",
-                equation: "√(32x⁵) / √(2x)",
-                options: ["4x²", "16x²", "4x⁴", "2x²"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Combine under one radical: <code>√((32x⁵) / (2x))</code>.",
-                    "2. Simplify quotient inside: <code>√(16x⁴)</code>.",
-                    "3. Take square root: <code>√16 = 4</code> and <code>√(x⁴) = x²</code> &rarr; <strong>4x²</strong>."
-                ]
-            },
-
-            // UNIT 5 DAY 6: Composition of Functions
-            {
-                id: "u5d6_1", unit: "unit5", topic: "u5d6", dayLabel: "U5 Day 6", type: "mcq",
-                prompt: "Given f(x) = 2x + 3 and g(x) = x² - 1, find f(g(x)):",
-                equation: "f(g(x)) = ?",
-                options: ["2x² + 1", "2x² + 5", "4x² + 12x + 8", "2x² - 1"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Substitute <code>g(x)</code> into <code>f</code>: <code>f(g(x)) = 2(g(x)) + 3</code>.",
-                    "2. Replace <code>g(x)</code>: <code>2(x² - 1) + 3</code>.",
-                    "3. Expand: <code>2x² - 2 + 3 = 2x² + 1</code>."
-                ]
-            },
-            {
-                id: "u5d6_2", unit: "unit5", topic: "u5d6", dayLabel: "U5 Day 6", type: "fill",
-                prompt: "Given f(x) = √(x + 4) and g(x) = 3x - 1, evaluate (f ∘ g)(7):",
-                equation: "(f ∘ g)(7) = ?",
-                correctAnswer: "5",
-                solutionSteps: [
-                    "1. First find <code>g(7) = 3(7) - 1 = 21 - 1 = 20</code>.",
-                    "2. Then find <code>f(20) = √(20 + 4) = √24</code>... wait, <code>20 + 5 = 25</code>.",
-                    "3. <code>f(20) = √(20 + 5) = √25 = 5</code>."
-                ]
-            },
-            {
-                id: "u5d6_3", unit: "unit5", topic: "u5d6", dayLabel: "U5 Day 6", type: "mcq",
-                prompt: "If f(x) = x - 5 and g(x) = x², find (g ∘ f)(x):",
-                equation: "(g ∘ f)(x) = ?",
-                options: ["x² - 10x + 25", "x² - 5", "x² - 25", "x² + 25"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. <code>(g ∘ f)(x) = g(f(x)) = (x - 5)²</code>.",
-                    "2. Expand binomially: <code>(x - 5)(x - 5) = x² - 10x + 25</code>."
-                ]
-            },
-
-            // UNIT 5 DAY 7: Inverse Functions
-            {
-                id: "u5d7_1", unit: "unit5", topic: "u5d7", dayLabel: "U5 Day 7", type: "mcq",
-                prompt: "Find the algebraic inverse function f⁻¹(x):",
-                equation: "f(x) = 3x - 9",
-                options: ["f⁻¹(x) = (x + 9) / 3", "f⁻¹(x) = 3x + 9", "f⁻¹(x) = (x - 3) / 9", "f⁻¹(x) = 1/(3x - 9)"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Replace <code>f(x)</code> with <code>y</code>: <code>y = 3x - 9</code>.",
-                    "2. Swap x and y: <code>x = 3y - 9</code>.",
-                    "3. Isolate y: <code>x + 9 = 3y</code> &rarr; <code>y = (x + 9) / 3</code>."
-                ]
-            },
-            {
-                id: "u5d7_2", unit: "unit5", topic: "u5d7", dayLabel: "U5 Day 7", type: "mcq",
-                prompt: "Find the inverse function of the cubic function:",
-                equation: "f(x) = (x + 2)³ - 1",
-                options: ["f⁻¹(x) = ∛(x + 1) - 2", "f⁻¹(x) = ∛(x - 1) + 2", "f⁻¹(x) = (x + 1)³ - 2", "f⁻¹(x) = ∛(x + 2) + 1"],
-                correctIndex: 0,
-                solutionSteps: [
-                    "1. Set <code>x = (y + 2)³ - 1</code>.",
-                    "2. Add 1: <code>x + 1 = (y + 2)³</code>.",
-                    "3. Cube root both sides: <code>∛(x + 1) = y + 2</code>.",
-                    "4. Subtract 2: <strong>y = ∛(x + 1) - 2</strong>."
-                ]
-            },
-
-            // UNIT 5 DAY 8: Graphing Square and Cube Root Functions
+            // ==========================================
+            // UNIT 5 DAY 8 (REPLICATED IMAGE #19)
+            // ==========================================
             {
                 id: "u5d8_1", unit: "unit5", topic: "u5d8", dayLabel: "U5 Day 8", type: "mcq",
-                prompt: "Identify the starting endpoint and domain of the square root function:",
-                equation: "f(x) = √(x - 4) + 2",
+                prompt: "Identify the End Behavior of the cube root function:",
+                equation: "y = (1/2) ³√(x - 3) + 1",
                 options: [
-                    "Endpoint: (4, 2), Domain: [4, ∞)",
-                    "Endpoint: (-4, 2), Domain: [-4, ∞)",
-                    "Endpoint: (4, -2), Domain: [2, ∞)",
-                    "Endpoint: (0, 2), Domain: [0, ∞)"
+                    "As x → -∞, f(x) → -∞  and  As x → ∞, f(x) → ∞",
+                    "As x → -∞, f(x) → ∞   and  As x → ∞, f(x) → -∞",
+                    "As x → -∞, f(x) → 1   and  As x → ∞, f(x) → ∞",
+                    "As x → -∞, f(x) → -3  and  As x → ∞, f(x) → 3"
                 ],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. Radical argument must be non-negative: <code>x - 4 ≥ 0</code> &rarr; <code>x ≥ 4</code>.",
-                    "2. Endpoint lies at <code>(h, k) = (4, 2)</code>.",
-                    "3. Domain is <strong>[4, ∞)</strong>."
+                    "1. Note the parent cube root function <code>f(x) = ³√x</code> has infinite domain and range.",
+                    "2. Since leading coefficient <code>a = 1/2 > 0</code>, the graph keeps its increasing orientation.",
+                    "3. As <code>x → -∞</code>, <code>f(x) → -∞</code>.",
+                    "4. As <code>x → ∞</code>, <code>f(x) → ∞</code>."
                 ]
             },
             {
                 id: "u5d8_2", unit: "unit5", topic: "u5d8", dayLabel: "U5 Day 8", type: "mcq",
-                prompt: "What is the inflection point of the cube root function?",
-                equation: "f(x) = 2 ∛(x + 3) - 5",
-                options: ["(-3, -5)", "(3, -5)", "(-3, 5)", "(0, -5)"],
+                prompt: "Identify the End Behavior of the reflected cube root function:",
+                equation: "y = -2 ³√(x + 4) - 5",
+                options: [
+                    "As x → -∞, f(x) → ∞   and  As x → ∞, f(x) → -∞",
+                    "As x → -∞, f(x) → -∞  and  As x → ∞, f(x) → ∞",
+                    "As x → -∞, f(x) → -5  and  As x → ∞, f(x) → -5",
+                    "As x → -∞, f(x) → -4  and  As x → ∞, f(x) → 4"
+                ],
                 correctIndex: 0,
                 solutionSteps: [
-                    "1. General cube root form: <code>f(x) = a ∛(x - h) + k</code>.",
-                    "2. Point of inflection is <code>(h, k)</code>.",
-                    "3. Here <code>h = -3</code> and <code>k = -5</code> &rarr; Inflection point: <strong>(-3, -5)</strong>."
+                    "1. The leading coefficient <code>a = -2 < 0</code> causes a vertical reflection across the x-axis.",
+                    "2. When reflected, as <code>x → -∞</code>, <code>f(x) → ∞</code>.",
+                    "3. As <code>x → ∞</code>, <code>f(x) → -∞</code>."
                 ]
             }
         ];
+
+        /*
+         * Dynamic Procedural Question Generator
+         * Generates authentic questions matching the worksheet and image styles
+         */
+        function generateProceduralQuestion(unit, topic) {
+            const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            let subTopic = topic;
+            if (topic === 'all' || topic === 'all_u5') {
+                const u5Topics = ['u5d1', 'u5d2', 'u5d3', 'u5d4', 'u5d5', 'u5d6', 'u5d7', 'u5d8'];
+                subTopic = u5Topics[Math.floor(Math.random() * u5Topics.length)];
+            } else if (topic === 'all_u2') {
+                const u2Topics = ['u2d1', 'u2d2', 'u2d3', 'u2d4', 'u2d5'];
+                subTopic = u2Topics[Math.floor(Math.random() * u2Topics.length)];
+            } else if (topic === 'all_u3') {
+                const u3Topics = ['u3d1', 'u3d2', 'u3d3', 'u3d4', 'u3d5', 'u3d6', 'u3d7', 'u3d8', 'u3d9', 'u3d10'];
+                subTopic = u3Topics[Math.floor(Math.random() * u3Topics.length)];
+            }
+
+            // GENERATOR FOR U5 DAY 1
+            if (subTopic === 'u5d1') {
+                const numCoeff = 16;
+                const denCoeff = 81;
+                const p1 = randInt(5, 9);
+                const p2 = randInt(10, 15);
+                const expX = p1 - (-p2);
+                
+                return {
+                    id: "gen_" + Date.now(), unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
+                    prompt: "Simplify the radical expression with quotient and negative exponents, assuming x > 0:",
+                    equation: `⁴√( (${numCoeff} x^${p1}) / (${denCoeff} x^-${p2}) )`,
+                    options: [
+                        `(2/3) x^(${expX}/4)`,
+                        `(4/9) x^(${expX}/4)`,
+                        `(2/3) x^(${p1 - p2}/4)`,
+                        `(16/81) x^${expX}`
+                    ],
+                    correctIndex: 0,
+                    solutionSteps: [
+                        `1. Simplify x inside radical: <code>x^${p1} / x^-${p2} = x^(${p1} - (-${p2})) = x^${expX}</code>.`,
+                        `2. Take 4th root of fraction: <code>⁴√16 / ⁴√81 = 2 / 3</code>.`,
+                        `3. Resulting power: <code>x^(${expX}/4)</code>.`,
+                        `4. Answer: <strong>(2/3) x^(${expX}/4)</strong>.`
+                    ]
+                };
+            }
+
+            // GENERATOR FOR U5 DAY 2
+            if (subTopic === 'u5d2') {
+                const c1 = randInt(2, 6);
+                const c2 = randInt(1, 4);
+                const diff = c1 - c2;
+                return {
+                    id: "gen_" + Date.now(), unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
+                    prompt: "Combine like radical terms completely:",
+                    equation: `${c1} x² y³ ³√(4x y²) - ${c2} x² y³ ³√(4x y²)`,
+                    options: [
+                        `${diff} x² y³ ³√(4x y²)`,
+                        `${c1 + c2} x² y³ ³√(4x y²)`,
+                        `${diff} x y ³√(4x y²)`,
+                        `${diff} x⁴ y⁶ ³√(4x y²)`
+                    ],
+                    correctIndex: 0,
+                    solutionSteps: [
+                        `1. The radical terms are like terms: <code>x² y³ ³√(4x y²)</code>.`,
+                        `2. Subtract coefficients: <code>${c1} - ${c2} = ${diff}</code>.`,
+                        `3. Result: <strong>${diff} x² y³ ³√(4x y²)</strong>.`
+                    ]
+                };
+            }
+
+            // GENERATOR FOR U5 DAY 8
+            if (subTopic === 'u5d8') {
+                const aVal = Math.random() > 0.5 ? 2 : -2;
+                const hVal = randInt(1, 9);
+                const kVal = randInt(1, 9);
+                
+                const isPos = aVal > 0;
+                return {
+                    id: "gen_" + Date.now(), unit: "unit5", topic: "u5d8", dayLabel: "U5 Day 8", type: "mcq",
+                    prompt: "Identify the End Behavior of the given cube root function:",
+                    equation: `y = ${aVal} ³√(x - ${hVal}) + ${kVal}`,
+                    options: [
+                        isPos ? "As x → -∞, f(x) → -∞  and  As x → ∞, f(x) → ∞" : "As x → -∞, f(x) → ∞  and  As x → ∞, f(x) → -∞",
+                        isPos ? "As x → -∞, f(x) → ∞  and  As x → ∞, f(x) → -∞" : "As x → -∞, f(x) → -∞  and  As x → ∞, f(x) → ∞",
+                        `As x → -∞, f(x) → ${kVal}  and  As x → ∞, f(x) → ∞`,
+                        `As x → -∞, f(x) → -${hVal}  and  As x → ∞, f(x) → ${hVal}`
+                    ],
+                    correctIndex: 0,
+                    solutionSteps: [
+                        `1. Examine the leading coefficient <code>a = ${aVal}</code>.`,
+                        isPos ? `2. Since <code>a > 0</code>, as <code>x → -∞</code>, <code>f(x) → -∞</code>, and as <code>x → ∞</code>, <code>f(x) → ∞</code>.` :
+                        `2. Since <code>a < 0</code>, the graph is vertically reflected: as <code>x → -∞</code>, <code>f(x) → ∞</code>, and as <code>x → ∞</code>, <code>f(x) → -∞</code>.`
+                    ]
+                };
+            }
+
+            // TOPIC 5-3 GENERATOR
+            if (subTopic === 'u5d3') {
+                const num = randInt(4, 9);
+                const den = randInt(1, num - 1);
+                const diff = num - den;
+                
+                return {
+                    id: "gen_" + Date.now(), unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "mcq",
+                    prompt: "Simplify the quotient expression with rational exponents:",
+                    equation: `(q^(${num}/5)) / (q^(${den}/5))`,
+                    options: [`q^(${diff}/5)`, `q^(${num + den}/5)`, `q^(${num * den}/25)`, `q^(-${diff}/5)`],
+                    correctIndex: 0,
+                    solutionSteps: [
+                        `1. Quotient rule: Subtract numerator exponent minus denominator exponent: <code>${num}/5 - ${den}/5</code>.`,
+                        `2. <code>(${num} - ${den})/5 = ${diff}/5</code>.`,
+                        `3. Answer: <strong>q^(${diff}/5)</strong>.`
+                    ]
+                };
+            }
+
+            // Fallback for other topics
+            return {
+                id: "gen_" + Date.now(), unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
+                prompt: "Simplify the radical expression completely:",
+                equation: `√50`,
+                options: ["5√2", "2√5", "10√5", "25√2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor 50 into 25 × 2.",
+                    "2. <code>√50 = √25 × √2 = 5√2</code>."
+                ]
+            };
+        }
 
         /*
          * Application State Variables
@@ -1359,6 +712,7 @@
         let timerSeconds = 0;
         let timerInterval = null;
         let userAnswers = [];
+        let isInfiniteMode = false;
 
         // DOM Element Cache
         const setupScreen = document.getElementById('setupScreen');
@@ -1396,7 +750,7 @@
 
             let optionsToLoad = [];
             if (selectedUnit === 'all') {
-                optionsToLoad = [{ id: "all", name: "All Topics Across Units" }];
+                optionsToLoad = [{ id: "all", name: "All Units & Topics (Mixed)" }];
             } else {
                 optionsToLoad = topicMap[selectedUnit] || [];
             }
@@ -1420,27 +774,31 @@
             const topicVal = topicSelect.value;
             const countVal = countSelect.value;
 
-            // Filter question bank based on user selection
+            isInfiniteMode = (countVal === 'infinite');
+
+            // Filter static question bank matching user selection
             activeQuestions = questionBank.filter(q => {
                 const matchUnit = (unitVal === 'all' || q.unit === unitVal);
-                const matchTopic = (topicVal === 'all' || q.topic === topicVal);
+                const matchTopic = (topicVal === 'all' || topicVal.startsWith('all_') || q.topic === topicVal);
                 return matchUnit && matchTopic;
             });
 
-            if (activeQuestions.length === 0) {
-                alert("No questions available for the selected combination. Please choose another option!");
-                return;
-            }
-
-            // Shuffle questions
+            // Shuffle static questions
             activeQuestions.sort(() => Math.random() - 0.5);
 
-            // Limit question count if requested
-            if (countVal !== 'all') {
+            // Limit question count or generate on demand
+            if (!isInfiniteMode) {
                 const limit = parseInt(countVal, 10);
-                if (!isNaN(limit) && limit > 0) {
+                if (activeQuestions.length < limit) {
+                    const numNeeded = limit - activeQuestions.length;
+                    for (let i = 0; i < numNeeded; i++) {
+                        activeQuestions.push(generateProceduralQuestion(unitVal, topicVal));
+                    }
+                } else {
                     activeQuestions = activeQuestions.slice(0, limit);
                 }
+            } else if (activeQuestions.length === 0) {
+                activeQuestions.push(generateProceduralQuestion(unitVal, topicVal));
             }
 
             // Reset quiz session state
@@ -1452,7 +810,7 @@
             userAnswers = [];
 
             // Update Header & Ratio display
-            totalQNum.textContent = activeQuestions.length;
+            totalQNum.textContent = isInfiniteMode ? "∞" : activeQuestions.length;
             updateStatsDisplays();
             updateAccuracyRatioBar();
 
@@ -1510,6 +868,15 @@
 
         // LOAD CURRENT QUESTION
         function loadQuestion() {
+            if (currentIndex >= activeQuestions.length) {
+                if (isInfiniteMode) {
+                    activeQuestions.push(generateProceduralQuestion(unitSelect.value, topicSelect.value));
+                } else {
+                    finishQuiz();
+                    return;
+                }
+            }
+
             const q = activeQuestions[currentIndex];
 
             feedbackBox.classList.add('hidden');
@@ -1519,8 +886,7 @@
             currentQNum.textContent = currentIndex + 1;
             dayBadge.textContent = q.dayLabel || "Algebra 2";
 
-            // Main Progress Line
-            const progressPercent = (currentIndex / activeQuestions.length) * 100;
+            const progressPercent = isInfiniteMode ? 100 : (currentIndex / activeQuestions.length) * 100;
             progressBar.style.width = `${progressPercent}%`;
 
             questionPrompt.textContent = q.prompt;
@@ -1537,16 +903,6 @@
                     `;
                     answersContainer.appendChild(btn);
                 });
-            } else if (q.type === 'fill') {
-                const fillWrapper = document.createElement('div');
-                fillWrapper.className = "space-y-3";
-                fillWrapper.innerHTML = `
-                    <div class="flex gap-2">
-                        <input type="text" id="fillInput" placeholder="Type your numeric answer..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 text-sm font-mono focus:outline-none focus:border-blue-500">
-                        <button onclick="handleFillAnswer()" class="px-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl">Submit</button>
-                    </div>
-                `;
-                answersContainer.appendChild(fillWrapper);
             }
         }
 
@@ -1566,34 +922,9 @@
                 clickedBtn.classList.remove('bg-slate-900', 'border-slate-800');
                 clickedBtn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-300');
                 
-                // Highlight correct option
                 allBtns[q.correctIndex].classList.remove('bg-slate-900', 'border-slate-800');
                 allBtns[q.correctIndex].classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
                 
-                handleIncorrectAnswer();
-            }
-
-            userAnswers.push({ question: q, correct: isCorrect });
-            updateAccuracyRatioBar();
-            showFeedback(isCorrect, q.solutionSteps);
-        }
-
-        // Fill-in-the-blank Logic
-        function handleFillAnswer() {
-            const input = document.getElementById('fillInput');
-            if (!input || !input.value.trim()) return;
-
-            const q = activeQuestions[currentIndex];
-            const userVal = input.value.trim();
-            const isCorrect = (userVal.toLowerCase() === q.correctAnswer.toLowerCase());
-
-            input.disabled = true;
-
-            if (isCorrect) {
-                input.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-300');
-                handleCorrectAnswer();
-            } else {
-                input.classList.add('border-rose-500', 'bg-rose-500/10', 'text-rose-300');
                 handleIncorrectAnswer();
             }
 
@@ -1640,7 +971,7 @@
 
         function nextQuestion() {
             currentIndex++;
-            if (currentIndex < activeQuestions.length) {
+            if (isInfiniteMode || currentIndex < activeQuestions.length) {
                 loadQuestion();
             } else {
                 finishQuiz();
@@ -1649,26 +980,7 @@
 
         // RESET CURRENT ACTIVE QUIZ IN-PLACE
         function resetCurrentQuiz() {
-            if (activeQuestions.length === 0) return;
-
-            // Reset logic variables
-            currentIndex = 0;
-            score = 0;
-            streak = 0;
-            maxStreak = 0;
-            timerSeconds = 0;
-            userAnswers = [];
-
-            // Re-shuffle current session questions for a fresh start
-            activeQuestions.sort(() => Math.random() - 0.5);
-
-            // Update Stats & Red/Green Ratio display back to initial clean state
-            updateStatsDisplays();
-            updateAccuracyRatioBar();
-            updateTimerDisplay();
-
-            // Load first question cleanly
-            loadQuestion();
+            startQuiz();
         }
 
         // Complete Quiz Summary
@@ -1678,19 +990,18 @@
             quizScreen.classList.add('hidden');
             resultsScreen.classList.remove('hidden');
 
-            const total = activeQuestions.length;
+            const total = userAnswers.length;
             const correctCount = userAnswers.filter(a => a.correct).length;
             const incorrectCount = total - correctCount;
-            const accuracy = Math.round((correctCount / total) * 100);
+            const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
 
             document.getElementById('finalScore').textContent = `${correctCount} / ${total}`;
             document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
             document.getElementById('finalTime').textContent = document.getElementById('timerDisplay').textContent;
             document.getElementById('finalStreak').textContent = maxStreak;
 
-            // Render Final Red / Green Summary Bar
-            const greenPercent = Math.round((correctCount / total) * 100);
-            const redPercent = Math.round((incorrectCount / total) * 100);
+            const greenPercent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            const redPercent = total > 0 ? Math.round((incorrectCount / total) * 100) : 0;
 
             document.getElementById('summaryGreenBar').style.width = `${greenPercent}%`;
             document.getElementById('summaryRedBar').style.width = `${redPercent}%`;
