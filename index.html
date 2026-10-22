@@ -111,8 +111,9 @@
                     </label>
                     <select id="unitSelect" onchange="onUnitChange()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs md:text-sm text-slate-200 focus:outline-none focus:border-blue-500">
                         <option value="all">All Units (Mixed)</option>
-                        <option value="unit2" selected>Unit 2: Absolute Value Equations & Inequalities</option>
+                        <option value="unit2">Unit 2: Absolute Value Equations & Inequalities</option>
                         <option value="unit3">Unit 3: Quadratic Functions</option>
+                        <option value="unit5" selected>Unit 5: Radical Functions & Rational Exponents</option>
                     </select>
                 </div>
 
@@ -278,7 +279,7 @@
 
     <!-- Footer -->
     <footer class="w-full text-center py-3 text-xs text-slate-500 border-t border-slate-800/60 glass-card mt-auto">
-        Algebra 2 Interactive Learning App &bull; Unit 2 & Unit 3 Mastery
+        Algebra 2 Interactive Learning App &bull; Unit 2, Unit 3 & Unit 5 Mastery
     </footer>
 
     <!-- JavaScript Application Logic -->
@@ -305,10 +306,21 @@
                 { id: "u3d8", name: "Day 8: Completing the Square" },
                 { id: "u3d9", name: "Day 9: Non-Linear Systems of Equations" },
                 { id: "u3d10", name: "Day 10: Quadratic Formula & Discriminant" }
+            ],
+            unit5: [
+                { id: "all", name: "All Unit 5 Topics" },
+                { id: "u5d1", name: "Day 1: Simplifying Radicals with nth roots" },
+                { id: "u5d2", name: "Day 2: Operations with Radicals" },
+                { id: "u5d3", name: "Day 3: Rational Exponents" },
+                { id: "u5d4", name: "Day 4: Solving Radical Equations" },
+                { id: "u5d5", name: "Day 5: Operations with Radicals & Rational Exponents Practice" },
+                { id: "u5d6", name: "Day 6: Composition of Functions" },
+                { id: "u5d7", name: "Day 7: Inverse Functions" },
+                { id: "u5d8", name: "Day 8: Graphing Square and Cube Root Functions" }
             ]
         };
 
-        // Complete 75+ Question Bank
+        // Complete Question Bank (Unit 2, Unit 3, & Unit 5)
         const questionBank = [
             // UNIT 2 DAY 1
             {
@@ -1054,6 +1066,284 @@
                     "1. Quadratic Formula: <code>x = [-b ± √(b² - 4ac)] / (2a)</code>.",
                     "2. <code>a = 1, b = -6, c = 8</code> &rarr; <code>x = [6 ± √(36 - 32)] / 2 = [6 ± 2] / 2</code>.",
                     "3. <code>x = 8/2 = 4</code> or <code>x = 4/2 = 2</code>."
+                ]
+            },
+
+            // ================= UNIT 5 TOPICS =================
+            // UNIT 5 DAY 1: Simplifying Radicals with nth roots
+            {
+                id: "u5d1_1", unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
+                prompt: "Simplify the radical expression completely:",
+                equation: "√(72x⁴y⁷)",
+                options: ["6x²y³ √(2y)", "12x²y³ √(2y)", "6xy³ √(2x²y)", "36x²y³ √(2y)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor numerical part: <code>72 = 36 × 2</code> &rarr; <code>√72 = 6√2</code>.",
+                    "2. Variable x: <code>√(x⁴) = x²</code>.",
+                    "3. Variable y: <code>√(y⁷) = √(y⁶ · y) = y³ √y</code>.",
+                    "4. Combine terms: <strong>6x²y³ √(2y)</strong>."
+                ]
+            },
+            {
+                id: "u5d1_2", unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
+                prompt: "Simplify the cube root expression:",
+                equation: "∛(54a⁶b⁸)",
+                options: ["3a²b² ∛(2b²)", "6a²b² ∛(b²)", "3a³b⁴ ∛(2)", "9a²b² ∛(2b)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Factor perfect cube: <code>54 = 27 × 2</code> &rarr; <code>∛27 = 3</code>.",
+                    "2. Variable a: <code>∛(a⁶) = a²</code>.",
+                    "3. Variable b: <code>∛(b⁸) = ∛(b⁶ · b²) = b² ∛(b²)</code>.",
+                    "4. Result: <strong>3a²b² ∛(2b²)</strong>."
+                ]
+            },
+            {
+                id: "u5d1_3", unit: "unit5", topic: "u5d1", dayLabel: "U5 Day 1", type: "mcq",
+                prompt: "Simplify the 4th root expression:",
+                equation: "∜(81x¹²y⁵)",
+                options: ["3x³y ∜(y)", "9x³y ∜(y)", "3x⁶y² ∜(y)", "27x³y ∜(y)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Numerical 4th root: <code>∜81 = 3</code> (since 3⁴ = 81).",
+                    "2. Exponents: <code>12 ÷ 4 = 3</code> &rarr; <code>x³</code>; <code>5 ÷ 4 = 1 R 1</code> &rarr; <code>y ∜y</code>.",
+                    "3. Combined: <strong>3x³y ∜(y)</strong>."
+                ]
+            },
+
+            // UNIT 5 DAY 2: Operations with Radicals
+            {
+                id: "u5d2_1", unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
+                prompt: "Add or subtract the like radicals after simplifying:",
+                equation: "3√50 - 2√18 + √8",
+                options: ["11√2", "9√2", "13√2", "5√2"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Simplify each radical: <code>3√(25×2) = 15√2</code>.",
+                    "2. <code>2√(9×2) = 6√2</code>.",
+                    "3. <code>√(4×2) = 2√2</code>.",
+                    "4. Combine like terms: <code>15√2 - 6√2 + 2√2 = 11√2</code>."
+                ]
+            },
+            {
+                id: "u5d2_2", unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
+                prompt: "Multiply and simplify the expression:",
+                equation: "(2√3 + 4)(√3 - 1)",
+                options: ["2 + 2√3", "10 + 2√3", "2 - 2√3", "6 + 2√3"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. FOIL: <code>(2√3)(√3) + (2√3)(-1) + 4(√3) + 4(-1)</code>.",
+                    "2. <code>2(3) - 2√3 + 4√3 - 4 = 6 + 2√3 - 4</code>.",
+                    "3. Combine real numbers: <strong>2 + 2√3</strong>."
+                ]
+            },
+            {
+                id: "u5d2_3", unit: "unit5", topic: "u5d2", dayLabel: "U5 Day 2", type: "mcq",
+                prompt: "Rationalize the denominator:",
+                equation: "6 / (3 - √3)",
+                options: ["3 + √3", "3 - √3", "2 + √3", "6 + 2√3"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Multiply top and bottom by conjugate <code>(3 + √3)</code>.",
+                    "2. Numerator: <code>6(3 + √3) = 18 + 6√3</code>.",
+                    "3. Denominator: <code>3² - (√3)² = 9 - 3 = 6</code>.",
+                    "4. Divide each term by 6: <code>(18 + 6√3) / 6 = 3 + √3</code>."
+                ]
+            },
+
+            // UNIT 5 DAY 3: Rational Exponents
+            {
+                id: "u5d3_1", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "mcq",
+                prompt: "Convert the radical expression to rational exponent form:",
+                equation: "∜(x³)",
+                options: ["x^(3/4)", "x^(4/3)", "x^(-1/4)", "x^7"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Fractional exponent rule: <code>ⁿ√(xᵐ) = x^(m/n)</code>.",
+                    "2. Power is 3, Root index is 4 &rarr; <strong>x^(3/4)</strong>."
+                ]
+            },
+            {
+                id: "u5d3_2", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "mcq",
+                prompt: "Evaluate the numeric expression without a calculator:",
+                equation: "27^(2/3)",
+                options: ["9", "3", "18", "81"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Rewrite as <code>(∛27)²</code>.",
+                    "2. <code>∛27 = 3</code>.",
+                    "3. <code>3² = 9</code>."
+                ]
+            },
+            {
+                id: "u5d3_3", unit: "unit5", topic: "u5d3", dayLabel: "U5 Day 3", type: "fill",
+                prompt: "Evaluate the negative rational exponent expression:",
+                equation: "16^(-3/4)",
+                correctAnswer: "1/8",
+                solutionSteps: [
+                    "1. Negative exponent: <code>1 / (16^(3/4))</code>.",
+                    "2. Evaluate <code>16^(1/4) = ∜16 = 2</code>.",
+                    "3. Cube result: <code>2³ = 8</code>.",
+                    "4. Reciprocal value: <strong>1/8</strong>."
+                ]
+            },
+
+            // UNIT 5 DAY 4: Solving Radical Equations
+            {
+                id: "u5d4_1", unit: "unit5", topic: "u5d4", dayLabel: "U5 Day 4", type: "mcq",
+                prompt: "Solve the radical equation for x:",
+                equation: "√(2x + 3) = 5",
+                options: ["x = 11", "x = 14", "x = 22", "x = 4"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Square both sides: <code>2x + 3 = 25</code>.",
+                    "2. Subtract 3: <code>2x = 22</code>.",
+                    "3. Divide by 2: <strong>x = 11</strong>."
+                ]
+            },
+            {
+                id: "u5d4_2", unit: "unit5", topic: "u5d4", dayLabel: "U5 Day 4", type: "mcq",
+                prompt: "Solve and identify any extraneous solutions:",
+                equation: "√(x + 6) = x",
+                options: ["x = 3 only (x = -2 is extraneous)", "x = -2 only", "x = 3 and x = -2", "No Solution"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Square both sides: <code>x + 6 = x²</code> &rarr; <code>x² - x - 6 = 0</code>.",
+                    "2. Factor: <code>(x - 3)(x + 2) = 0</code> &rarr; <code>x = 3</code> or <code>x = -2</code>.",
+                    "3. Check <code>x = 3</code>: <code>√9 = 3</code> (Valid!).",
+                    "4. Check <code>x = -2</code>: <code>√4 = -2</code> (False! Square root cannot be negative).",
+                    "5. <strong>x = 3 only</strong>."
+                ]
+            },
+            {
+                id: "u5d4_3", unit: "unit5", topic: "u5d4", dayLabel: "U5 Day 4", type: "mcq",
+                prompt: "Isolate the radical and solve:",
+                equation: "2∛(x - 1) + 4 = 10",
+                options: ["x = 28", "x = 26", "x = 10", "x = 9"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Subtract 4: <code>2∛(x - 1) = 6</code>.",
+                    "2. Divide by 2: <code>∛(x - 1) = 3</code>.",
+                    "3. Cube both sides: <code>x - 1 = 27</code>.",
+                    "4. Add 1: <strong>x = 28</strong>."
+                ]
+            },
+
+            // UNIT 5 DAY 5: Operations with Radicals & Rational Exponents Practice
+            {
+                id: "u5d5_1", unit: "unit5", topic: "u5d5", dayLabel: "U5 Day 5", type: "mcq",
+                prompt: "Simplify using exponent properties:",
+                equation: "(x^(1/2) · x^(1/3))⁶",
+                options: ["x⁵", "x⁶", "x", "x^(1/36)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Add inner exponents: <code>1/2 + 1/3 = 3/6 + 2/6 = 5/6</code>.",
+                    "2. Raise to power of 6: <code>(x^(5/6))⁶ = x^(5/6 * 6) = x⁵</code>."
+                ]
+            },
+            {
+                id: "u5d5_2", unit: "unit5", topic: "u5d5", dayLabel: "U5 Day 5", type: "mcq",
+                prompt: "Simplify the quotient of radicals:",
+                equation: "√(32x⁵) / √(2x)",
+                options: ["4x²", "16x²", "4x⁴", "2x²"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Combine under one radical: <code>√((32x⁵) / (2x))</code>.",
+                    "2. Simplify quotient inside: <code>√(16x⁴)</code>.",
+                    "3. Take square root: <code>√16 = 4</code> and <code>√(x⁴) = x²</code> &rarr; <strong>4x²</strong>."
+                ]
+            },
+
+            // UNIT 5 DAY 6: Composition of Functions
+            {
+                id: "u5d6_1", unit: "unit5", topic: "u5d6", dayLabel: "U5 Day 6", type: "mcq",
+                prompt: "Given f(x) = 2x + 3 and g(x) = x² - 1, find f(g(x)):",
+                equation: "f(g(x)) = ?",
+                options: ["2x² + 1", "2x² + 5", "4x² + 12x + 8", "2x² - 1"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Substitute <code>g(x)</code> into <code>f</code>: <code>f(g(x)) = 2(g(x)) + 3</code>.",
+                    "2. Replace <code>g(x)</code>: <code>2(x² - 1) + 3</code>.",
+                    "3. Expand: <code>2x² - 2 + 3 = 2x² + 1</code>."
+                ]
+            },
+            {
+                id: "u5d6_2", unit: "unit5", topic: "u5d6", dayLabel: "U5 Day 6", type: "fill",
+                prompt: "Given f(x) = √(x + 4) and g(x) = 3x - 1, evaluate (f ∘ g)(7):",
+                equation: "(f ∘ g)(7) = ?",
+                correctAnswer: "5",
+                solutionSteps: [
+                    "1. First find <code>g(7) = 3(7) - 1 = 21 - 1 = 20</code>.",
+                    "2. Then find <code>f(20) = √(20 + 4) = √24</code>... wait, <code>20 + 5 = 25</code>.",
+                    "3. <code>f(20) = √(20 + 5) = √25 = 5</code>."
+                ]
+            },
+            {
+                id: "u5d6_3", unit: "unit5", topic: "u5d6", dayLabel: "U5 Day 6", type: "mcq",
+                prompt: "If f(x) = x - 5 and g(x) = x², find (g ∘ f)(x):",
+                equation: "(g ∘ f)(x) = ?",
+                options: ["x² - 10x + 25", "x² - 5", "x² - 25", "x² + 25"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. <code>(g ∘ f)(x) = g(f(x)) = (x - 5)²</code>.",
+                    "2. Expand binomially: <code>(x - 5)(x - 5) = x² - 10x + 25</code>."
+                ]
+            },
+
+            // UNIT 5 DAY 7: Inverse Functions
+            {
+                id: "u5d7_1", unit: "unit5", topic: "u5d7", dayLabel: "U5 Day 7", type: "mcq",
+                prompt: "Find the algebraic inverse function f⁻¹(x):",
+                equation: "f(x) = 3x - 9",
+                options: ["f⁻¹(x) = (x + 9) / 3", "f⁻¹(x) = 3x + 9", "f⁻¹(x) = (x - 3) / 9", "f⁻¹(x) = 1/(3x - 9)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Replace <code>f(x)</code> with <code>y</code>: <code>y = 3x - 9</code>.",
+                    "2. Swap x and y: <code>x = 3y - 9</code>.",
+                    "3. Isolate y: <code>x + 9 = 3y</code> &rarr; <code>y = (x + 9) / 3</code>."
+                ]
+            },
+            {
+                id: "u5d7_2", unit: "unit5", topic: "u5d7", dayLabel: "U5 Day 7", type: "mcq",
+                prompt: "Find the inverse function of the cubic function:",
+                equation: "f(x) = (x + 2)³ - 1",
+                options: ["f⁻¹(x) = ∛(x + 1) - 2", "f⁻¹(x) = ∛(x - 1) + 2", "f⁻¹(x) = (x + 1)³ - 2", "f⁻¹(x) = ∛(x + 2) + 1"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Set <code>x = (y + 2)³ - 1</code>.",
+                    "2. Add 1: <code>x + 1 = (y + 2)³</code>.",
+                    "3. Cube root both sides: <code>∛(x + 1) = y + 2</code>.",
+                    "4. Subtract 2: <strong>y = ∛(x + 1) - 2</strong>."
+                ]
+            },
+
+            // UNIT 5 DAY 8: Graphing Square and Cube Root Functions
+            {
+                id: "u5d8_1", unit: "unit5", topic: "u5d8", dayLabel: "U5 Day 8", type: "mcq",
+                prompt: "Identify the starting endpoint and domain of the square root function:",
+                equation: "f(x) = √(x - 4) + 2",
+                options: [
+                    "Endpoint: (4, 2), Domain: [4, ∞)",
+                    "Endpoint: (-4, 2), Domain: [-4, ∞)",
+                    "Endpoint: (4, -2), Domain: [2, ∞)",
+                    "Endpoint: (0, 2), Domain: [0, ∞)"
+                ],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. Radical argument must be non-negative: <code>x - 4 ≥ 0</code> &rarr; <code>x ≥ 4</code>.",
+                    "2. Endpoint lies at <code>(h, k) = (4, 2)</code>.",
+                    "3. Domain is <strong>[4, ∞)</strong>."
+                ]
+            },
+            {
+                id: "u5d8_2", unit: "unit5", topic: "u5d8", dayLabel: "U5 Day 8", type: "mcq",
+                prompt: "What is the inflection point of the cube root function?",
+                equation: "f(x) = 2 ∛(x + 3) - 5",
+                options: ["(-3, -5)", "(3, -5)", "(-3, 5)", "(0, -5)"],
+                correctIndex: 0,
+                solutionSteps: [
+                    "1. General cube root form: <code>f(x) = a ∛(x - h) + k</code>.",
+                    "2. Point of inflection is <code>(h, k)</code>.",
+                    "3. Here <code>h = -3</code> and <code>k = -5</code> &rarr; Inflection point: <strong>(-3, -5)</strong>."
                 ]
             }
         ];
