@@ -68,7 +68,7 @@
                 </div>
                 <div>
                     <h1 class="text-base md:text-lg font-extrabold text-white tracking-tight leading-tight">Algebra 2 Master Quiz</h1>
-                    <p class="text-xs text-slate-400">Interactive Curriculum Practice Suite</p>
+                    <p class="text-xs text-slate-400">Ultimately Vibe Coded Website v1.5</p>
                 </div>
             </div>
             
@@ -99,7 +99,7 @@
         <div id="setupScreen" class="glass-card rounded-2xl p-6 md:p-8 shadow-2xl space-y-6 transition-all duration-300">
             <div class="text-center space-y-2">
                 <span class="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full">Interactive Practice</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Algebra 2 Curriculum Quiz</h2>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Algebra 2 Curriculum Quiz v1.5</h2>
                 <p class="text-slate-400 max-w-lg mx-auto text-xs md:text-sm">Select your Unit and specific Day/Topic to practice step-by-step problem solving.</p>
             </div>
 
@@ -867,6 +867,10 @@
         }
 
         // LOAD CURRENT QUESTION
+        // Global variable to keep track of the correct answer index for the active question after shuffling
+        let currentCorrectIndex = 0;
+
+        // LOAD CURRENT QUESTION (Updated with option randomization)
         function loadQuestion() {
             if (currentIndex >= activeQuestions.length) {
                 if (isInfiniteMode) {
@@ -893,9 +897,21 @@
             questionEquation.innerHTML = q.equation;
 
             if (q.type === 'mcq') {
-                q.options.forEach((opt, idx) => {
+                // 1. Grab the text of the correct answer using the original correctIndex
+                const correctAnswerText = q.options[q.correctIndex];
+
+                // 2. Create a shallow copy of the options array and shuffle it randomly
+                let shuffledOptions = [...q.options];
+                shuffledOptions.sort(() => Math.random() - 0.5);
+
+                // 3. Find the new index of the correct answer after shuffling
+                currentCorrectIndex = shuffledOptions.indexOf(correctAnswerText);
+
+                // 4. Render the randomized options
+                shuffledOptions.forEach((opt, idx) => {
                     const btn = document.createElement('button');
                     btn.className = "option-btn w-full text-left p-3.5 md:p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 text-xs md:text-sm font-medium flex items-center justify-between";
+                    // Pass the randomized index (idx) to the handler
                     btn.onclick = () => handleMCQAnswer(idx, btn);
                     btn.innerHTML = `
                         <span>${opt}</span>
@@ -906,10 +922,11 @@
             }
         }
 
-        // MCQ Selection Logic
+        // MCQ Selection Logic (Updated to use currentCorrectIndex)
         function handleMCQAnswer(selectedIdx, clickedBtn) {
             const q = activeQuestions[currentIndex];
-            const isCorrect = (selectedIdx === q.correctIndex);
+            // Check against the randomized currentCorrectIndex instead of q.correctIndex
+            const isCorrect = (selectedIdx === currentCorrectIndex);
 
             const allBtns = answersContainer.querySelectorAll('button');
             allBtns.forEach(btn => btn.disabled = true);
@@ -922,8 +939,9 @@
                 clickedBtn.classList.remove('bg-slate-900', 'border-slate-800');
                 clickedBtn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-300');
                 
-                allBtns[q.correctIndex].classList.remove('bg-slate-900', 'border-slate-800');
-                allBtns[q.correctIndex].classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+                // Highlight the correct shuffled button
+                allBtns[currentCorrectIndex].classList.remove('bg-slate-900', 'border-slate-800');
+                allBtns[currentCorrectIndex].classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
                 
                 handleIncorrectAnswer();
             }
